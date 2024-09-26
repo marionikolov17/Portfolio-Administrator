@@ -1,9 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+
 function App() {
   return (
     <>
-      <h1 className="text-4xl font-poppins">Hello World</h1>
+      <Routes>
+        <Route path="/" Component={Home}/>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
