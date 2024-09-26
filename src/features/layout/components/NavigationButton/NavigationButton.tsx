@@ -1,5 +1,13 @@
-export default function NavigationButton() {
+import { Link } from "react-router-dom";
+import { navIcons } from "../../../../shared/data/nav-icons";
+
+export default function NavigationButton({ to, title, isActive, icon }: { to: string, title: string, isActive: boolean, icon: string }) {
     return (
-        <></>
+        <>
+            <Link to={to} className={`w-full mt-2 flex items-center py-2.5 px-6 rounded-lg ${isActive && "bg-primary-950"} overflow-hidden hover:bg-primary-950 transition duration-300`}>
+                {navIcons[icon]}
+                <p className="text-white text-base">{title}</p>
+            </Link>
+        </>
     )
 }
