@@ -1,7 +1,9 @@
 export default function Home() {
     return (
         <>
-            <section></section>
+            <section className="no-scrollbar">
+
+            </section>
         </>
     )
 }
