@@ -6,7 +6,7 @@ export default function Home() {
             <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
                 <div className="w-full 2xl:w-[70%] h-max">
                     {/* Visits statistics */}
-                    <div className="w-full flex flex-wrap gap-x-4 gap-y-2">
+                    <div className="w-full flex flex-wrap gap-x-3 gap-y-3">
                         <StatisticsBox icon="visits" title="Visits" result={"1,443"}/>
                         <StatisticsBox icon="uniqueVisits" title="Unique Visits" result={"253"}/>
                         <StatisticsBox icon="avgTime" title="Avg Time" result={"1m 02s"}/>

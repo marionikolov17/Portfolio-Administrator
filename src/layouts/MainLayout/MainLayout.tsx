@@ -9,7 +9,7 @@ export default function MainLayout() {
             <main className="w-full bg-primary-950 min-h-full absolute flex font-poppins">
                 <DesktopNavigation />
                 <MobileNavigation />
-                <div className="grow">
+                <div className="grow mb-12 sm:mb-0">
                     <TopBar />
                     <Outlet />
                 </div>
