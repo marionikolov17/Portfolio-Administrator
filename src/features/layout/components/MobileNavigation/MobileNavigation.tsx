@@ -6,7 +6,7 @@ export default function MobileNavigation() {
         <>
             <div className="z-50 fixed bottom-0 w-full h-12 bg-primary-900 flex sm:hidden items-center justify-around">
                 <Link to="/" className="mx-2">
-                    <IoHomeOutline className="text-white text-lg"/>
+                    <IoHomeOutline className="text-brand-600 text-lg"/>
                 </Link>
                 <Link to="/" className="mx-2">
                     <IoClipboardOutline className="text-white text-lg"/>
