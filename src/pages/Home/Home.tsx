@@ -1,5 +1,6 @@
 import FilterButtons from "../../features/home/components/FilterButtons/FilterButtons";
 import StatisticsBox from "../../features/home/components/StatisticsBox/StatisticsBox";
+import RecentNotificationsBox from "../../features/home/components/RecentNotificationsBox/RecentNotificationsBox";
 
 export default function Home() {
     return (
@@ -14,6 +15,10 @@ export default function Home() {
                         <StatisticsBox icon="uniqueVisits" title="Unique Visits" result={"253"}/>
                         <StatisticsBox icon="avgTime" title="Avg Time" result={"1m 02s"}/>
                         <StatisticsBox icon="totalTime" title="Total Time" result={"25m 33s"}/>
+                    </div>
+                    {/* Recent notifications and pages */}
+                    <div className="w-full flex flex-wrap gap-x-3 gap-y-3">
+                        <RecentNotificationsBox />
                     </div>
                 </div>
             </section>
