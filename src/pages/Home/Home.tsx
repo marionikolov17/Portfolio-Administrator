@@ -17,8 +17,11 @@ export default function Home() {
                         <StatisticsBox icon="totalTime" title="Total Time" result={"25m 33s"}/>
                     </div>
                     {/* Recent notifications and pages */}
-                    <div className="w-full flex flex-wrap gap-x-3 gap-y-3">
+                    <div className="w-full flex flex-wrap gap-x-3 gap-y-3 mt-8">
                         <RecentNotificationsBox />
+                        <div className="grow shirnk-0 w-[40%] h-80 bg-primary-900 rounded-lg shadow">
+
+                        </div>
                     </div>
                 </div>
             </section>
