@@ -10,7 +10,7 @@ export default function DesktopNavigation() {
                 {/* Navigation Buttons */}
                 <div className="w-full flex flex-col items-center px-2 lg:px-6">
                     <NavigationButton to="/" isActive={true} title="Home" icon="home" />
-                    <NavigationButton to="/" isActive={false} title="Notifications" icon="notifications" />
+                    <NavigationButton to="/notifications" isActive={false} title="Notifications" icon="notifications" />
                     <NavigationButton to="/" isActive={false} title="Inbox" icon="inbox" />
                     <NavigationButton to="/" isActive={false} title="Projects" icon="projects" />
                     <NavigationButton to="/" isActive={false} title="Certificates" icon="certificates" />

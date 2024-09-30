@@ -20,7 +20,7 @@ export default function MobileNavigation() {
         <Link to="/" className="mx-2">
           <IoTrophyOutline className="text-white text-lg" />
         </Link>
-        <Link to="/" className="mx-2">
+        <Link to="/notifications" className="mx-2">
           <IoNotificationsOutline className="text-white text-lg" />
         </Link>
         <Link to="/" className="mx-2">
