@@ -1,3 +1,4 @@
+import NotificationContainer from "../../features/notifications/components/NotificationContainer/NotificationContainer";
 import NotificationsActionForm from "../../features/notifications/components/NotificationsActionForm/NotificationsActionForm";
 
 export default function Notifications() {
@@ -10,6 +11,11 @@ export default function Notifications() {
                     </div>
                     {/* Searching, filtering and sorting */}
                     <NotificationsActionForm />
+                    {/* Fetched notifications */}
+                    <div className="">
+                        <NotificationContainer />
+                        <NotificationContainer />
+                    </div>
                 </div>
             </section>
         </>
