@@ -1,6 +1,7 @@
 import FilterButtons from "../../features/home/components/FilterButtons/FilterButtons";
 import StatisticsBox from "../../features/home/components/StatisticsBox/StatisticsBox";
 import RecentNotificationsBox from "../../features/home/components/RecentNotificationsBox/RecentNotificationsBox";
+import NewMessagesBox from "../../features/home/components/NewMessagesBox/NewMessagesBox";
 
 export default function Home() {
     return (
@@ -19,9 +20,7 @@ export default function Home() {
                     {/* Recent notifications and pages */}
                     <div className="w-full flex flex-wrap gap-x-3 gap-y-3 mt-8 justify-center">
                         <RecentNotificationsBox />
-                        <div className="grow w-[40%] shirnk-0 h-80 bg-primary-900 rounded-lg shadow">
-
-                        </div>
+                        <NewMessagesBox />
                     </div>
                 </div>
             </section>
