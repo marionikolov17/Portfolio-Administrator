@@ -11,7 +11,7 @@ export default function DesktopNavigation() {
                 <div className="w-full flex flex-col items-center px-2 lg:px-6">
                     <NavigationButton to="/" isActive={true} title="Home" icon="home" />
                     <NavigationButton to="/notifications" isActive={false} title="Notifications" icon="notifications" />
-                    <NavigationButton to="/" isActive={false} title="Inbox" icon="inbox" />
+                    <NavigationButton to="/inbox" isActive={false} title="Inbox" icon="inbox" />
                     <NavigationButton to="/" isActive={false} title="Projects" icon="projects" />
                     <NavigationButton to="/" isActive={false} title="Certificates" icon="certificates" />
                 </div>

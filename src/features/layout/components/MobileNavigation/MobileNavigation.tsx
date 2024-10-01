@@ -23,7 +23,7 @@ export default function MobileNavigation() {
         <Link to="/notifications" className="mx-2">
           <IoNotificationsOutline className="text-white text-lg" />
         </Link>
-        <Link to="/" className="mx-2">
+        <Link to="/inbox" className="mx-2">
           <IoChatboxOutline className="text-white text-lg" />
         </Link>
       </div>
