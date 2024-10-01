@@ -1,3 +1,4 @@
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import InboxHeader from "../../features/inbox/components/InboxHeader/InboxHeader";
 import MessagesContainer from "../../features/inbox/components/MessagesContainer/MessagesContainer";
 
@@ -16,6 +17,16 @@ export default function Inbox() {
             </div>
             {/* All messages */}
             <MessagesContainer />
+            {/* Messages pagination */}
+            <div className="mt-2 flex justify-end items-center">
+                <p className="text-white text-sm me-2">1-20 from 350</p>
+                <button className="text-white text-lg p-1 rounded-full hover:bg-primary-900 transition duration-300">
+                    <IoChevronBackOutline />
+                </button>
+                <button className="text-white text-lg p-1 rounded-full hover:bg-primary-900 transition duration-300">
+                    <IoChevronForwardOutline />
+                </button>
+            </div>
           </div>
         </div>
       </section>
