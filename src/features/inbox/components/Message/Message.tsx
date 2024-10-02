@@ -1,9 +1,14 @@
 import { IoStarOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function Message({ isRead, isFavourite }: { isRead: boolean, isFavourite: boolean }) {
+    const navigate = useNavigate();
+
+    const handleClick = () => navigate("/inbox/1");
+
     return (
         <>
-            <div className={`w-full flex items-center py-3 px-4 overflow-hidden ${!isRead && "bg-primary-900"}`}>
+            <div className={`w-full cursor-pointer flex items-center py-3 px-4 overflow-hidden ${!isRead && "bg-primary-900"}`} onClick={handleClick}>
                 <IoStarOutline className={`${isFavourite ? "text-brand-600" : "text-white"} text-xl`}/>
                 <h3 className={`text-white ${!isRead && "font-bold"} my-auto ms-4 text-sm hidden sm:inline-block`}>Mario Nikolov</h3>
                 <div className="ms-4 sm:ms-12 grow block">
