@@ -3,6 +3,7 @@ import Home from "./pages/Home/Home";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import Notifications from "./pages/Notifications/Notifications";
 import Inbox from "./pages/Inbox/Inbox";
+import InboxMessage from "./pages/InboxMessage/InboxMessage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route index Component={Home}/>
           <Route path="notifications" Component={Notifications}/>
           <Route path="inbox" Component={Inbox}/>
+          <Route path="inbox/:messageId" Component={InboxMessage}/>
         </Route>
       </Routes>
     </>
