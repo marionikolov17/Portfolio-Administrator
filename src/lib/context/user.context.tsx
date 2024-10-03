@@ -21,6 +21,7 @@ export function UserProvider({ children }: { children: React.ReactElement }) {
     try {
       const loggedIn = await account.createEmailPasswordSession(email, password);
       setUser(loggedIn);
+      setHasLoginError(false);
       navigate("/") // you can use different redirect method for your application
     } catch {
       setHasLoginError(true);
