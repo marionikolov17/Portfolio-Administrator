@@ -5,10 +5,11 @@ import Notifications from "./pages/Notifications/Notifications";
 import Inbox from "./pages/Inbox/Inbox";
 import InboxMessage from "./pages/InboxMessage/InboxMessage";
 import Login from "./pages/Login/Login";
+import { UserProvider } from "./lib/context/user.context";
 
 function App() {
   return (
-    <>
+    <UserProvider>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index Component={Home}/>
@@ -18,7 +19,7 @@ function App() {
         </Route>
         <Route path="/login" Component={Login}/>
       </Routes>
-    </>
+    </UserProvider>
   );
 }
 
