@@ -11,13 +11,22 @@ export function useUser() {
 
 export function UserProvider({ children }: { children: React.ReactElement }) {
   const [user, setUser] = useState<Models.Session | null | Models.User<Models.Preferences>>(null);
+  const [hasLoginError, setHasLoginError] = useState(false);
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
 
   const navigate = useNavigate();
 
   async function login(email: string, password: string) {
-    const loggedIn = await account.createEmailPasswordSession(email, password);
-    setUser(loggedIn);
-    navigate("/") // you can use different redirect method for your application
+    setIsLoginLoading(true);
+    try {
+      const loggedIn = await account.createEmailPasswordSession(email, password);
+      setUser(loggedIn);
+      navigate("/") // you can use different redirect method for your application
+    } catch {
+      setHasLoginError(true);
+    } finally {
+      setIsLoginLoading(false);
+    }
   }
 
   async function logout() {
@@ -41,7 +50,7 @@ export function UserProvider({ children }: { children: React.ReactElement }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ current: user, login, logout }}>
+    <UserContext.Provider value={{ current: user, login, logout, hasLoginError, isLoginLoading }}>
       {children}
     </UserContext.Provider>
   );
