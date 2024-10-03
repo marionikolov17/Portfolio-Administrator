@@ -1,8 +1,9 @@
 import { Models } from "appwrite";
 import { account } from "../appwrite";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const UserContext = createContext<Record<string, any> | null>(null);
+const UserContext = createContext<any>(null);
 
 export function useUser() {
   return useContext(UserContext);
@@ -11,15 +12,18 @@ export function useUser() {
 export function UserProvider({ children }: { children: React.ReactElement }) {
   const [user, setUser] = useState<Models.Session | null | Models.User<Models.Preferences>>(null);
 
+  const navigate = useNavigate();
+
   async function login(email: string, password: string) {
     const loggedIn = await account.createEmailPasswordSession(email, password);
     setUser(loggedIn);
-    window.location.replace("/"); // you can use different redirect method for your application
+    navigate("/") // you can use different redirect method for your application
   }
 
   async function logout() {
     await account.deleteSession("current");
     setUser(null);
+    navigate("/login")
   }
 
   async function init() {
@@ -28,6 +32,7 @@ export function UserProvider({ children }: { children: React.ReactElement }) {
       setUser(loggedIn);
     } catch {
       setUser(null);
+      navigate("/login")
     }
   }
 
