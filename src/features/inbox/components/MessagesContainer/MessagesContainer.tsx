@@ -6,9 +6,9 @@ export default function MessagesContainer({ messages }: { messages: Array<IMessa
     return (
         <>
             <div className="w-full overflow-x-hidden h-max py-2">
-                <Message isFavourite={true} isRead={false}/>
-                <Message isFavourite={false} isRead={true}/>
-                <Message isFavourite={true} isRead={false}/>
+                {messages?.map(message => {
+                    return <Message key={message.$id} message={message}/>
+                })}
             </div>
         </>
     )
