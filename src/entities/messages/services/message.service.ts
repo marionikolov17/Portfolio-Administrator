@@ -21,6 +21,23 @@ export const getMessages = async (isFavouriteSelected: boolean) => {
     return response;
 }
 
+export const searchMessages = async (search: string) => {
+    const response = await databases.listDocuments(
+        DATABASE_ID,
+        INBOX_COLLECTION_ID,
+        [
+            Query.or([
+                Query.contains("name", search),
+                Query.contains("title", search),
+                Query.contains("email", search),
+                Query.contains("message", search),
+            ])
+        ]
+    );
+
+    return response;
+}
+
 export const getMessage = async (id: string) => {
     const response = await databases.getDocument(
         DATABASE_ID,
