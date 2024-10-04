@@ -1,7 +1,10 @@
-export interface Message {
+import { Models } from "appwrite";
+
+export interface IMessage extends Models.Document {
     name: string,
     email: string,
     title: string,
     message: string,
-    $createdAt: string
+    isRead: boolean,
+    isFavourite: boolean
 }

@@ -10,7 +10,8 @@ export default function Inbox() {
     queryFn: getMessages
   });
 
-  console.log(data)
+  const messages = data?.documents;
+  console.log(messages)
 
   return (
     <>
@@ -25,7 +26,7 @@ export default function Inbox() {
                 <button className="grow text-white py-2 hover:border-b-2 border-b-brand-600 font-medium transition duration-300">Favourite</button>
             </div>
             {/* All messages */}
-            <MessagesContainer />
+            <MessagesContainer messages={messages}/>
             {/* Messages pagination */}
             <div className="mt-2 flex justify-end items-center">
                 <p className="text-white text-sm me-2">1-20 from 350</p>
