@@ -1,8 +1,17 @@
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import InboxHeader from "../../features/inbox/components/InboxHeader/InboxHeader";
 import MessagesContainer from "../../features/inbox/components/MessagesContainer/MessagesContainer";
+import { useQuery } from "@tanstack/react-query";
+import { getMessages } from "../../entities/messages/services/message.service";
 
 export default function Inbox() {
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['inbox'],
+    queryFn: getMessages
+  });
+
+  console.log(data)
+
   return (
     <>
       <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
