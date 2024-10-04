@@ -1,7 +1,18 @@
+import { Query } from "appwrite";
 import { databases } from "../../../lib/appwrite"
 import { DATABASE_ID, INBOX_COLLECTION_ID } from "../../../shared/constants/database.constant"
 
-export const getMessages = async () => {
+export const getMessages = async (isFavouriteSelected: boolean) => {
+    if (isFavouriteSelected === true) {
+        return await databases.listDocuments(
+            DATABASE_ID,
+            INBOX_COLLECTION_ID,
+            [
+                Query.equal("isFavourite", true)
+            ]
+        )
+    }
+
     const response = await databases.listDocuments(
         DATABASE_ID,
         INBOX_COLLECTION_ID
