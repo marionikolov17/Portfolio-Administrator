@@ -4,6 +4,7 @@ import InboxHeader from "../../features/inbox/components/InboxHeader/InboxHeader
 import MessagesContainer from "../../features/inbox/components/MessagesContainer/MessagesContainer";
 import { useQuery } from "@tanstack/react-query";
 import { getMessages } from "../../entities/messages/services/message.service";
+import Loader from "../../shared/components/Loader/Loader";
 
 export default function Inbox() {
   const { isPending, isError, data, error } = useQuery({
@@ -26,18 +27,30 @@ export default function Inbox() {
                 <button className="grow text-white py-2 border-b-2 border-b-brand-600 font-medium">All</button>
                 <button className="grow text-white py-2 hover:border-b-2 border-b-brand-600 font-medium transition duration-300">Favourite</button>
             </div>
-            {/* All messages */}
-            <MessagesContainer messages={messages}/>
-            {/* Messages pagination */}
-            <div className="mt-2 flex justify-end items-center">
-                <p className="text-white text-sm me-2">1-20 from 350</p>
-                <button className="text-white text-lg p-1 rounded-full hover:bg-primary-900 transition duration-300">
-                    <IoChevronBackOutline />
-                </button>
-                <button className="text-white text-lg p-1 rounded-full hover:bg-primary-900 transition duration-300">
-                    <IoChevronForwardOutline />
-                </button>
-            </div>
+            {isPending && 
+              <div className="w-full flex justify-center items-center my-4">
+                <Loader />
+              </div>
+            }
+            {isError && 
+              <div className="w-full flex justify-center items-center my-4">
+                <p className="text-red-600 text-base">{error.message}</p>
+              </div>
+            }
+            {data && <>
+              {/* All messages */}
+              <MessagesContainer messages={messages}/>
+              {/* Messages pagination */}
+              <div className="mt-2 flex justify-end items-center">
+                  <p className="text-white text-sm me-2">1-20 from 350</p>
+                  <button className="text-white text-lg p-1 rounded-full hover:bg-primary-900 transition duration-300">
+                      <IoChevronBackOutline />
+                  </button>
+                  <button className="text-white text-lg p-1 rounded-full hover:bg-primary-900 transition duration-300">
+                      <IoChevronForwardOutline />
+                  </button>
+              </div>
+            </>}
           </div>
         </div>
       </section>

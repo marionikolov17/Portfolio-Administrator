@@ -4,7 +4,7 @@
   aspect-ratio: 4;
   background: radial-gradient(
       closest-side at calc(100% / 6) 50%,
-      #000 90%,
+      #4f46e5 90%,
       #0000
     )
     0/75% 100%;
