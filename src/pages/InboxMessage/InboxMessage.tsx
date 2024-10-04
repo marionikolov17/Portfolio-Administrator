@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IoArrowBackOutline, IoPersonCircleOutline, IoStarOutline } from "react-icons/io5";
 
 export default function InboxMessage() {
+    const { messageId } = useParams();
+    
     return (
         <>
             <section className="w-full flex justify-center py-10 px-4 no-scrollbar">

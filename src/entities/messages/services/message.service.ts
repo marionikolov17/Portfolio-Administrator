@@ -9,3 +9,13 @@ export const getMessages = async () => {
 
     return response;
 }
+
+export const getMessage = async (id: string) => {
+    const response = await databases.getDocument(
+        DATABASE_ID,
+        INBOX_COLLECTION_ID,
+        id
+    );
+
+    return response;
+}
