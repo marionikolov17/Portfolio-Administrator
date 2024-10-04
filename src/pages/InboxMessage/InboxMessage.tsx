@@ -4,8 +4,9 @@ import {
   IoPersonCircleOutline,
   IoStarOutline,
 } from "react-icons/io5";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+    changeMessageStatus,
   getMessage,
   readMessage,
 } from "../../entities/messages/services/message.service";
@@ -15,11 +16,19 @@ import { useEffect } from "react";
 
 export default function InboxMessage() {
   const { messageId } = useParams();
+  const queryClient = useQueryClient();
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["inbox", messageId],
     queryFn: () => getMessage(messageId as string),
   });
+
+  const statusMutation = useMutation({
+    mutationFn: ({id, isFavourite}: { id: string, isFavourite: boolean }) => changeMessageStatus({id, isFavourite}),
+    onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["inbox", messageId] })
+    }
+  })
 
   const { mutate } = useMutation({
     mutationFn: (id: string) => readMessage(id)
@@ -49,6 +58,10 @@ export default function InboxMessage() {
     );
   }
 
+  const handleFavouriteClick = () => {
+    statusMutation.mutate({ id: messageId as string, isFavourite: !data?.isFavourite })
+  }
+
   return (
     <>
       <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
@@ -72,7 +85,10 @@ export default function InboxMessage() {
               <p className="text-primary-700 text-sm me-3">
                 {dateConverter(data?.$createdAt as string)}
               </p>
-              <IoStarOutline className="text-white text-xl cursor-pointer" />
+              <IoStarOutline
+               onClick={handleFavouriteClick}
+               className={`${data?.isFavourite ? "text-brand-600" : "text-white"} text-xl cursor-pointer`} 
+               />
             </div>
           </div>
           {/* Message */}
