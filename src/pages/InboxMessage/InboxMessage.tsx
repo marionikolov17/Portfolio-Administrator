@@ -4,10 +4,14 @@ import {
   IoPersonCircleOutline,
   IoStarOutline,
 } from "react-icons/io5";
-import { useQuery } from "@tanstack/react-query";
-import { getMessage } from "../../entities/messages/services/message.service";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  getMessage,
+  readMessage,
+} from "../../entities/messages/services/message.service";
 import { dateConverter } from "../../shared/utils/dateConverter";
 import Loader from "../../shared/components/Loader/Loader";
+import { useEffect } from "react";
 
 export default function InboxMessage() {
   const { messageId } = useParams();
@@ -16,6 +20,14 @@ export default function InboxMessage() {
     queryKey: ["inbox", messageId],
     queryFn: () => getMessage(messageId as string),
   });
+
+  const { mutate } = useMutation({
+    mutationFn: (id: string) => readMessage(id)
+  })
+
+  useEffect(() => {
+    mutate(messageId as string)
+  }, [mutate, messageId])
 
   if (isPending) {
     return (
