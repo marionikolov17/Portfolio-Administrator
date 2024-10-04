@@ -30,3 +30,25 @@ export const readMessage = async (id: string) => {
 
     return response;
 }
+
+export const favouriteMessage = async (id: string) => {
+    const response = await databases.updateDocument(
+        DATABASE_ID,
+        INBOX_COLLECTION_ID,
+        id,
+        { isFavourite: true }
+    );
+
+    return response;
+}
+
+export const unfavouriteMessage = async (id: string) => {
+    const response = await databases.updateDocument(
+        DATABASE_ID,
+        INBOX_COLLECTION_ID,
+        id,
+        { isFavourite: false }
+    );
+
+    return response;
+}
