@@ -2,6 +2,7 @@ import { IoStarOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { IMessage } from "../../../../entities/messages/interfaces/message.interface";
 import { Models } from "appwrite";
+import { dateConverter } from "../../../../shared/utils/dateConverter";
 
 export default function Message({ message }: { message: IMessage | Models.Document | undefined }) {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function Message({ message }: { message: IMessage | Models.Docume
                     <h3 className={`text-white ${!message?.isRead && "font-bold"} my-auto mb-1 text-sm block sm:hidden`}>{message?.name}</h3>
                     <h4 className={`text-white ${!message?.isRead && "font-bold"} text-sm`}>{message?.title}</h4>
                 </div>
-                <p className="text-primary-700 text-sm">20:43</p>
+                <p className="text-primary-700 text-sm">{dateConverter(message?.$createdAt as string)}</p>
             </div>
         </>
     )
