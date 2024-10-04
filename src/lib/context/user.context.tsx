@@ -42,7 +42,7 @@ export function UserProvider({ children }: { children: React.ReactElement }) {
       setUser(loggedIn);
     } catch {
       setUser(null);
-      navigate("/login")
+      //navigate("/login")
     }
   }
 
