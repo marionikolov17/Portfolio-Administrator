@@ -7,7 +7,7 @@ import { dateConverter } from "../../../../shared/utils/dateConverter";
 export default function Message({ message }: { message: IMessage | Models.Document | undefined }) {
     const navigate = useNavigate();
 
-    const handleClick = () => navigate("/inbox/1");
+    const handleClick = () => navigate(`/inbox/${message?.$id}`);
 
     return (
         <>
