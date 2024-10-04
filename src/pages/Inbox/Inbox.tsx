@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import InboxHeader from "../../features/inbox/components/InboxHeader/InboxHeader";
 import MessagesContainer from "../../features/inbox/components/MessagesContainer/MessagesContainer";
