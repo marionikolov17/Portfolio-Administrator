@@ -19,3 +19,14 @@ export const getMessage = async (id: string) => {
 
     return response;
 }
+
+export const readMessage = async (id: string) => {
+    const response = await databases.updateDocument(
+        DATABASE_ID,
+        INBOX_COLLECTION_ID,
+        id,
+        { isRead: true }
+    );
+
+    return response;
+}
