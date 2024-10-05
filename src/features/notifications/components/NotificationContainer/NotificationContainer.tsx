@@ -22,7 +22,7 @@ export default function NotificationContainer({ notification }: { notification: 
                     </p>
                     <p className={`ms-2 text-white text-sm sm:text-base gap-x-2 ${notification?.isRead ? "font-normal" : "font-bold"}`}>
                         {notification?.type === "visit" ? `${notification?.message} ${timeConverter(notification?.totalTime)}` : notification?.message}
-                         <span className="text-primary-600 text-xs sm:hidden my-auto">{moment(notification?.$createdAt).fromNow()}</span>
+                         <span className="text-primary-600 ms-1 text-xs sm:hidden my-auto">{moment(notification?.$createdAt).fromNow()}</span>
                     </p>
                 </div>
                 <p className="text-primary-600 text-xs sm:text-sm hidden sm:inline-block">
