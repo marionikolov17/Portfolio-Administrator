@@ -1,4 +1,4 @@
-export const FLAG_ICONS = {
+export const FLAG_ICONS: Record<string, string> = {
     "Afghanistan": "https://flagcdn.com/af.svg",
     "Albania": "https://flagcdn.com/al.svg",
     "Algeria": "https://flagcdn.com/dz.svg",
