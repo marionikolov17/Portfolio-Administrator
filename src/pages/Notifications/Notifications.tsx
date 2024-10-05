@@ -19,7 +19,7 @@ export default function Notifications() {
                         <h1 className="text-white text-lg font-bold sm:text-2xl">Notifications</h1>
                     </div>
                     {/* Searching, filtering and sorting */}
-                    <NotificationsActionForm />
+                    <NotificationsActionForm totalNotifications={data?.total as number}/>
                     {/* Fetched notifications */}
                     <div className="">
                         {notifications?.map(notification => (
