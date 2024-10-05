@@ -12,16 +12,16 @@ export default function NotificationsActionForm({ totalNotifications }: CurrentP
                 <div className="flex items-center bg-transparent py-2 px-4 border border-primary-800 rounded-lg">
                     <IoCalendarClearOutline className="me-2 text-brand-600 text-lg"/>
                     <select name="" id="" className="outline-none bg-transparent text-sm text-white">
-                        <option value="" className="text-black">Last 7 days</option>
-                        <option value="" className="text-black">Last 30 days</option>
-                        <option value="" className="text-black">All time</option>
+                        <option value="last-7" className="text-black">Last 7 days</option>
+                        <option value="last-30" className="text-black">Last 30 days</option>
+                        <option value="all" className="text-black">All time</option>
                     </select>
                 </div>
                 <div className="flex items-center bg-transparent py-2 px-4 border border-primary-800 rounded-lg">
                     <select name="" id="" className="outline-none bg-transparent text-sm text-white">
-                        <option value="" className="text-black">All</option>
-                        <option value="" className="text-black">Visits</option>
-                        <option value="" className="text-black">Clicks</option>
+                        <option value="all" className="text-black">All</option>
+                        <option value="visits" className="text-black">Visits</option>
+                        <option value="clicks" className="text-black">Clicks</option>
                     </select>
                 </div>
             </div>
