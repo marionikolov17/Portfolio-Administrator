@@ -1,9 +1,9 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import NotificationContainer from "../../features/notifications/components/NotificationContainer/NotificationContainer";
 import NotificationsActionForm from "../../features/notifications/components/NotificationsActionForm/NotificationsActionForm";
-import { getNotifications } from "../../entities/notifications/services/notification.service";
+import { getNotifications, readNotifications } from "../../entities/notifications/services/notification.service";
 import Loader from "../../shared/components/Loader/Loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Notifications() {
     const [selectedTime, setSelectedTime] = useState("last-7");
@@ -11,8 +11,18 @@ export default function Notifications() {
 
     const { isPending, isError, data, error } = useQuery({
         queryKey: ["notifications", selectedTime, selectedType],
-        queryFn: () => getNotifications(selectedTime, selectedType)
+        queryFn: () => getNotifications(selectedTime, selectedType),
     });
+
+    const { mutate } = useMutation({
+        mutationFn: readNotifications,
+    })
+
+    useEffect(() => {
+        return () => {
+            mutate();
+        }
+    }, [mutate])
 
     const queryClient = useQueryClient();
 
