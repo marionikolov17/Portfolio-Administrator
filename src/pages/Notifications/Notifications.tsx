@@ -14,6 +14,7 @@ export default function Notifications() {
         queryFn: () => getNotifications(selectedTime, selectedType),
     });
 
+    // Read notifications on leaving page
     const { mutate } = useMutation({
         mutationFn: readNotifications,
     })
