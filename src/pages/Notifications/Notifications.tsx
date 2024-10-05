@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import NotificationContainer from "../../features/notifications/components/NotificationContainer/NotificationContainer";
 import NotificationsActionForm from "../../features/notifications/components/NotificationsActionForm/NotificationsActionForm";
 import { getNotifications } from "../../entities/notifications/services/notification.service";
+import Loader from "../../shared/components/Loader/Loader";
 
 export default function Notifications() {
     const { isPending, isError, data, error } = useQuery({
@@ -20,12 +21,23 @@ export default function Notifications() {
                     </div>
                     {/* Searching, filtering and sorting */}
                     <NotificationsActionForm totalNotifications={data?.total as number}/>
+                    {isPending &&
+                        <div className="w-full flex items-center justify-center my-10">
+                            <Loader />
+                        </div>
+                    }
+                    {isError &&
+                        <div className="w-full flex items-center justify-center my-10">
+                            <p className="text-red-600">{error.message}</p>
+                        </div>
+                    }
                     {/* Fetched notifications */}
-                    <div className="">
+                    {data && data.total > 0 && <div className="">
                         {notifications?.map(notification => (
                             <NotificationContainer key={notification.$id} notification={notification}/>
                         ))}
-                    </div>
+                    </div>}
+                    {data?.total == 0 && <p className="my-6 text-white text-base">There are no notifications</p>}
                 </div>
             </section>
         </>
