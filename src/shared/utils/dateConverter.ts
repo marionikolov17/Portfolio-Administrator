@@ -15,11 +15,11 @@ export const dateConverter = (inputDate: string): string => {
   // Handle same year
   if (date.getFullYear() === currentDate.getFullYear()) {
     return `${date.getDate()}.${
-      date.getMonth() > 9 ? date.getMonth() : `0${date.getMonth()}`
+      date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`
     }`;
   }
 
   return `${date.getDate()}.${
-    date.getMonth() > 9 ? date.getMonth() : `0${date.getMonth()}`
+    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`
   }.${date.getFullYear()}`;
 };
