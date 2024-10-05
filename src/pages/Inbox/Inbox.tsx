@@ -61,7 +61,7 @@ export default function Inbox() {
               <MessagesContainer messages={messages}/>
               {/* Messages pagination */}
               <div className="mt-2 flex justify-end items-center">
-                  <p className="text-white text-sm me-2">1-20 from 350</p>
+                  <p className="text-white text-sm me-2">1-{data.total <= 20 ? data.total : 20} from {data.total}</p>
                   <button className="text-white text-lg p-1 rounded-full hover:bg-primary-900 transition duration-300">
                       <IoChevronBackOutline />
                   </button>
