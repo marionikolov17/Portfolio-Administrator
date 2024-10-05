@@ -1,7 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
 import NotificationContainer from "../../features/notifications/components/NotificationContainer/NotificationContainer";
 import NotificationsActionForm from "../../features/notifications/components/NotificationsActionForm/NotificationsActionForm";
+import { getNotifications } from "../../entities/notifications/services/notification.service";
 
 export default function Notifications() {
+    const { isPending, isError, data, error } = useQuery({
+        queryKey: ["notifications"],
+        queryFn: getNotifications
+    });
+
+    const notifications = data?.documents;
+
     return (
         <>
             <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
@@ -13,8 +22,9 @@ export default function Notifications() {
                     <NotificationsActionForm />
                     {/* Fetched notifications */}
                     <div className="">
-                        <NotificationContainer />
-                        <NotificationContainer />
+                        {notifications?.map(notification => (
+                            <NotificationContainer key={notification.$id} notification={notification}/>
+                        ))}
                     </div>
                 </div>
             </section>
