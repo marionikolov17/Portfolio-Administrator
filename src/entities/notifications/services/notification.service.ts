@@ -45,3 +45,16 @@ export const getNotifications = async (selectedTime: string, selectedType: strin
 
     return response;
 }
+
+export const readNotifications = async () => {
+    const response = await databases.listDocuments(DATABASE_ID, NOTIFICATIONS_COLLECTION_ID);
+    const documents = response.documents;
+
+    for (const document of documents) {
+        const documentId = document.$id;
+
+        await databases.updateDocument(DATABASE_ID, NOTIFICATIONS_COLLECTION_ID, documentId, { "isRead": true })
+    }
+
+    return response;
+}
