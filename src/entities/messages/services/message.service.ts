@@ -2,37 +2,26 @@ import { Query } from "appwrite";
 import { databases } from "../../../lib/appwrite"
 import { DATABASE_ID, INBOX_COLLECTION_ID } from "../../../shared/constants/database.constant"
 
-export const getMessages = async (isFavouriteSelected: boolean) => {
+export const getMessages = async (isFavouriteSelected: boolean, search: string | null) => {
+    const queries = [];
+
     if (isFavouriteSelected === true) {
-        return await databases.listDocuments(
-            DATABASE_ID,
-            INBOX_COLLECTION_ID,
-            [
-                Query.equal("isFavourite", true)
-            ]
-        )
+        queries.push(Query.equal("isFavourite", true));
+    }
+
+    if (search !== null && search !== "") {
+        queries.push(Query.or([
+            Query.contains("name", search as string),
+            Query.contains("title", search as string),
+            Query.contains("email", search as string),
+            Query.contains("message", search as string),
+        ]))
     }
 
     const response = await databases.listDocuments(
         DATABASE_ID,
-        INBOX_COLLECTION_ID
-    );
-
-    return response;
-}
-
-export const searchMessages = async (search: string) => {
-    const response = await databases.listDocuments(
-        DATABASE_ID,
         INBOX_COLLECTION_ID,
-        [
-            Query.or([
-                Query.contains("name", search),
-                Query.contains("title", search),
-                Query.contains("email", search),
-                Query.contains("message", search),
-            ])
-        ]
+        [...queries]
     );
 
     return response;

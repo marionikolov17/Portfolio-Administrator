@@ -8,22 +8,23 @@ import Loader from "../../shared/components/Loader/Loader";
 
 export default function Inbox() {
   const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
+  const [searchInput, setSearchInput] = useState(null);
   const queryClient = useQueryClient();
 
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['inbox', isFavoriteSelected],
-    queryFn: () => getMessages(isFavoriteSelected)
+    queryKey: ['inbox', isFavoriteSelected, searchInput],
+    queryFn: () => getMessages(isFavoriteSelected, searchInput)
   });
 
   const messages = data?.documents;
 
   const handleAllMessagesButton = () => {
-    queryClient.invalidateQueries({ queryKey: ['inbox', isFavoriteSelected] });
+    queryClient.invalidateQueries({ queryKey: ['inbox', isFavoriteSelected, searchInput] });
     setIsFavoriteSelected(false);
   }
 
   const handleFavouriteMessagesButton = () => {
-    queryClient.invalidateQueries({ queryKey: ['inbox', isFavoriteSelected] })
+    queryClient.invalidateQueries({ queryKey: ['inbox', isFavoriteSelected, searchInput] })
     setIsFavoriteSelected(true);
   }
 
@@ -55,7 +56,7 @@ export default function Inbox() {
                 <p className="text-red-600 text-base">{error.message}</p>
               </div>
             }
-            {data && data.total > 0 && 
+            {data && data.total > 0 &&
             <>
               {/* All messages */}
               <MessagesContainer messages={messages}/>
