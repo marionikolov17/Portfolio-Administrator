@@ -37,6 +37,8 @@ export const getNotifications = async (selectedTime: string, selectedType: strin
         );
     }
 
+    filterArr.push(Query.orderDesc("$createdAt"));
+
     const response = await databases.listDocuments(
         DATABASE_ID,
         NOTIFICATIONS_COLLECTION_ID,
