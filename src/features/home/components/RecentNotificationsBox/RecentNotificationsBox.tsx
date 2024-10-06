@@ -13,7 +13,7 @@ export default function RecentNotificationsBox({ limit }: { limit: number }) {
 
     return (
         <>
-            <div className="grow shrink-0 h-80 bg-primary-900 rounded-lg shadow px-3 sm:px-10 py-6">
+            <div className="grow max-w-full shrink-0 h-80 bg-primary-900 rounded-lg shadow px-3 sm:px-10 py-6">
                 <h3 className="text-lg text-white font-bold">Recent Activity</h3>
 
                 {isPending &&

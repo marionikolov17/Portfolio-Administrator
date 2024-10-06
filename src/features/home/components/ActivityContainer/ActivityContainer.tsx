@@ -17,10 +17,10 @@ export default function ActivityContainer({ notification }: { notification: INot
                 <p className="text-white font-medium text-sm sm:text-base">
                     {notification?.actorIP !== null ? notification?.actorIP : "Unknown"}
                 </p>
-                <p className="text-white ms-2">
+                <p className="text-white ms-2 text-sm sm:text-base">
                     {notification?.type === "visit" ? "Visited portfolio" : notification?.message}
                 </p>
-                <p className="ms-2 text-sm text-primary-700">
+                <p className="ms-2 text-xs sm:text-sm text-primary-700">
                     {moment(notification?.$createdAt).fromNow()}
                 </p>
             </div>

@@ -7,8 +7,8 @@ export function useError() {
 }
 
 export function ErrorProvider({ children }: { children: React.ReactElement }) {
-    const [isOpened, setIsOpened] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [isOpened, setIsOpened] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("Critical error has occurred. Please contact support!");
 
     return (
         <ErrorContext.Provider value={{ isOpened, setIsOpened, errorMessage, setErrorMessage }}>
