@@ -8,9 +8,12 @@ import { fetchViewsStatistics } from "../../entities/views/services/view.service
 import { getAverageTime, getTotalTime, getUniqueViews } from "../../entities/views/helpers/statistic.helper";
 import { IView } from "../../entities/views/interfaces/view.interface";
 import { timeConverter } from "../../shared/utils/timeConverter";
+import { useError } from "../../shared/context/error.context";
 
 export default function Home() {
     const [period, setPeriod] = useState("last-7");
+
+    const { setIsOpened, setErrorMessage } = useError()
 
     const limit = 4;
 
@@ -29,6 +32,11 @@ export default function Home() {
         uniqueViews = getUniqueViews(data?.documents as IView[]);
         averageTime = getAverageTime(data?.documents as IView[]);
         totalTime = getTotalTime(data?.documents as IView[]);
+    }
+
+    if (isError) {
+        setErrorMessage(error.message);
+        setIsOpened(true);
     }
 
     return (
