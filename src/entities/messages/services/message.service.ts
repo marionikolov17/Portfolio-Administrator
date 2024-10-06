@@ -2,7 +2,7 @@ import { Query } from "appwrite";
 import { databases } from "../../../lib/appwrite"
 import { DATABASE_ID, INBOX_COLLECTION_ID } from "../../../shared/constants/database.constant"
 
-export const getMessages = async (isFavouriteSelected: boolean, search: string | null) => {
+export const getMessages = async (isFavouriteSelected: boolean, search: string | null, limit: number | null = null) => {
     const queries = [];
 
     if (isFavouriteSelected === true) {
@@ -17,6 +17,12 @@ export const getMessages = async (isFavouriteSelected: boolean, search: string |
             Query.contains("message", search as string),
         ]))
     }
+
+    if (limit !== null) {
+        queries.push(Query.limit(limit as number));
+    }
+
+    queries.push(Query.orderDesc("$createdAt"))
 
     const response = await databases.listDocuments(
         DATABASE_ID,
