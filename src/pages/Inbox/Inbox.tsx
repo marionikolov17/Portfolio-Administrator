@@ -8,7 +8,7 @@ import Loader from "../../shared/components/Loader/Loader";
 
 export default function Inbox() {
   const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
-  const [searchInput, setSearchInput] = useState(null);
+  const [searchInput, setSearchInput] = useState<null | string>(null);
   const queryClient = useQueryClient();
 
   const { isPending, isError, data, error } = useQuery({
@@ -32,7 +32,7 @@ export default function Inbox() {
     <>
       <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
         <div className="w-full 2xl:w-[70%] h-max overflow-x-hidden">
-          <InboxHeader />
+          <InboxHeader setSearchInput={setSearchInput}/>
           {/* Messages container */}
           <div className="w-full mt-8 rounded-lg shadow overflow-hidden h-max">
             {/* Buttons */}

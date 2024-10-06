@@ -1,6 +1,7 @@
+import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
-export default function InboxHeader() {
+export default function InboxHeader({ setSearchInput }: { setSearchInput: React.Dispatch<React.SetStateAction<null | string>> }) {
   return (
     <>
       <header className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-1 px-1">
@@ -15,6 +16,7 @@ export default function InboxHeader() {
                 type="text"
                 placeholder="Search"
                 className="ms-2 bg-transparent outline-none text-white grow"
+                onChange={(e) => setSearchInput(e.target.value)}
             />
             </div>
         </div>
