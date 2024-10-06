@@ -1,6 +1,6 @@
 import ActivityContainer from "../ActivityContainer/ActivityContainer";
 
-export default function RecentNotificationsBox() {
+export default function RecentNotificationsBox({ limit }: { limit: number }) {
     return (
         <>
             <div className="grow shrink-0 h-80 bg-primary-900 rounded-lg shadow px-3 sm:px-10 py-6">

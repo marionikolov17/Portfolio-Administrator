@@ -4,6 +4,8 @@ import RecentNotificationsBox from "../../features/home/components/RecentNotific
 import NewMessagesBox from "../../features/home/components/NewMessagesBox/NewMessagesBox";
 
 export default function Home() {
+    const limit = 4;
+
     return (
         <>
             <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
@@ -19,8 +21,8 @@ export default function Home() {
                     </div>
                     {/* Recent notifications and pages */}
                     <div className="w-full flex flex-wrap gap-x-3 gap-y-3 mt-8 justify-center">
-                        <RecentNotificationsBox />
-                        <NewMessagesBox />
+                        <RecentNotificationsBox limit={limit}/>
+                        <NewMessagesBox limit={limit}/>
                     </div>
                 </div>
             </section>
