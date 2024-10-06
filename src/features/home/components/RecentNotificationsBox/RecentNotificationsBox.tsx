@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import ActivityContainer from "../ActivityContainer/ActivityContainer";
 import { getNotifications } from "../../../../entities/notifications/services/notification.service";
+import Loader from "../../../../shared/components/Loader/Loader";
 
 export default function RecentNotificationsBox({ limit }: { limit: number }) {
     const { isPending, isError, data, error } = useQuery({
@@ -15,6 +16,12 @@ export default function RecentNotificationsBox({ limit }: { limit: number }) {
             <div className="grow shrink-0 h-80 bg-primary-900 rounded-lg shadow px-3 sm:px-10 py-6">
                 <h3 className="text-lg text-white font-bold">Recent Activity</h3>
 
+                {isPending &&
+                    <div className="w-full flex justify-center">
+                        <Loader />
+                    </div>
+                }
+                {isError && <p className="mt-4 text-red-600">{error.message}</p>}
                 {data && data.total > 0 &&
                 <div className="mt-4 border-b border-b-primary-800">
                     {
