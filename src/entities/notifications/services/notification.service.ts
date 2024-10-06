@@ -2,7 +2,7 @@ import { Query } from "appwrite";
 import { databases } from "../../../lib/appwrite"
 import { DATABASE_ID, NOTIFICATIONS_COLLECTION_ID } from "../../../shared/constants/database.constant"
 
-export const getNotifications = async (selectedTime: string, selectedType: string) => {
+export const getNotifications = async (selectedTime: string, selectedType: string, limit: number | null = null) => {
     const filterArr: string[] = [];
 
     // selected time filtering
@@ -35,6 +35,11 @@ export const getNotifications = async (selectedTime: string, selectedType: strin
         filterArr.push(
             Query.equal("type", "click")
         );
+    }
+
+    // Limiting
+    if (limit !== null) {
+        filterArr.push(Query.limit(limit));
     }
 
     filterArr.push(Query.orderDesc("$createdAt"));
