@@ -10,7 +10,7 @@ import { IView } from "../../entities/views/interfaces/view.interface";
 import { timeConverter } from "../../shared/utils/timeConverter";
 
 export default function Home() {
-    const [period, setPeriod] = useState("all");
+    const [period, setPeriod] = useState("last-7");
 
     const limit = 4;
 
