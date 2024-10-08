@@ -1,4 +1,5 @@
 import { BsFiletypePng } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export default function EditCertificate() {
   const handleDrop = () => {};
@@ -81,9 +82,14 @@ export default function EditCertificate() {
                 className="py-2 px-4 w-full bg-transparent outline-none rounded-lg text-sm border border-primary-800 text-white mt-1 transition duration-300 focus:ring-2 focus:ring-brand-600"
               />
             </div>
-            <button className="mt-6 w-full rounded-lg flex justify-center py-2 text-white bg-brand-600 hover:bg-brand-700">
-                Create
-            </button>
+            <div className="flex w-full justify-end items-center h-max mt-6">
+                <button className="rounded-lg flex grow justify-center px-8 py-1.5 text-white bg-brand-600 hover:bg-brand-700">
+                    Edit
+                </button>
+                <Link to="/certificates" className="py-1.5 ps-8 flex items-center text-white text-sm">
+                    Cancel
+                </Link>
+            </div>
           </form>
         </div>
       </section>
