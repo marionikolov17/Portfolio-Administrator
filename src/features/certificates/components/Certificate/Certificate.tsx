@@ -18,10 +18,10 @@ export default function Certificate() {
         </div>
         {/* Buttons */}
         <div className="flex items-center justify-center px-4 w-full grow py-4 border-t border-t-primary-800 sm:border-none sm:py-0 sm:grow-0 sm:w-auto">
-          <Link to="/certificates/edit/1"><IoCreateOutline className="text-brand-600 text-2xl cursor-pointer mx-1.5"/></Link>
-          <IoTrashOutline className="text-red-600 text-2xl cursor-pointer mx-1.5"/>
-          <IoArrowUpOutline className="text-white text-2xl cursor-pointer mx-1.5"/>
-          <IoArrowDownOutline className="text-white text-2xl cursor-pointer mx-1.5"/>
+          <Link to="/certificates/edit/1"><IoCreateOutline className="text-brand-600 hover:text-brand-700 text-2xl cursor-pointer mx-1.5"/></Link>
+          <IoTrashOutline className="text-red-600 hover:text-red-700 text-2xl cursor-pointer mx-1.5"/>
+          <IoArrowUpOutline className="text-white hover:text-brand-600 text-2xl cursor-pointer mx-1.5"/>
+          <IoArrowDownOutline className="text-white hover:text-brand-600 text-2xl cursor-pointer mx-1.5"/>
         </div>
       </div>
     </>
