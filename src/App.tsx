@@ -5,6 +5,7 @@ import Notifications from "./pages/Notifications/Notifications";
 import Inbox from "./pages/Inbox/Inbox";
 import InboxMessage from "./pages/InboxMessage/InboxMessage";
 import Login from "./pages/Login/Login";
+import Certificates from "./pages/Certificates/Certificates";
 import { UserProvider } from "./lib/context/user.context";
 import { ErrorProvider } from "./shared/context/error.context";
 
@@ -19,6 +20,7 @@ function App() {
               <Route path="notifications" Component={Notifications}/>
               <Route path="inbox" Component={Inbox}/>
               <Route path="inbox/:messageId" Component={InboxMessage}/>
+              <Route path="certificates" Component={Certificates}/>
             </Route>
             <Route path="/login" Component={Login}/>
           </Routes>
