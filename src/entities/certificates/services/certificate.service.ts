@@ -46,11 +46,47 @@ export const getCertificates = async () => {
     return response;
 }
 
-export const moveCertificate = async (id: string, index: number) => {
-    await databases.updateDocument(
+export const moveCertificate = async (data: { id: string, isUp: boolean }) => {
+    const response = await databases.listDocuments(
         DATABASE_ID,
         CERTIFICATES_COLLECTION_ID,
-        id,
-        { index: index }
-    )
+        [
+            Query.orderAsc("index")
+        ]
+    );
+    const documents = response.documents;
+
+    for (let i = 0; i < documents.length; i++) {
+        const document = documents[i];
+
+        if (document.$id === data.id) {
+            if (data.isUp) {
+                await databases.updateDocument(
+                    DATABASE_ID,
+                    CERTIFICATES_COLLECTION_ID,
+                    document.$id,
+                    { index: i - 1 }
+                )
+                await databases.updateDocument(
+                    DATABASE_ID,
+                    CERTIFICATES_COLLECTION_ID,
+                    documents[i - 1].$id,
+                    { index: i }
+                )
+            } else {
+                await databases.updateDocument(
+                    DATABASE_ID,
+                    CERTIFICATES_COLLECTION_ID,
+                    document.$id,
+                    { index: i + 1 }
+                )
+                await databases.updateDocument(
+                    DATABASE_ID,
+                    CERTIFICATES_COLLECTION_ID,
+                    documents[i + 1].$id,
+                    { index: i }
+                )
+            }
+        }
+    }
 }

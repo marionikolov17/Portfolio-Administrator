@@ -30,8 +30,8 @@ export default function Certificates() {
                     {isError && <p className="text-red-600">{error.message}</p>}
                     {/* Fetched certificates here */}
                     {data && <div className="w-full mt-6 flex flex-col gap-y-4">
-                        {certificates?.map(certificate => (
-                            <Certificate key={certificate.$id} certificate={certificate}/>
+                        {certificates?.map((certificate, index) => (
+                            <Certificate key={certificate.$id} certificate={certificate} index={index} maxIndex={data.total - 1}/>
                         ))}
                     </div>}
                     {data?.total === 0 && <p className="mt-6 text-white">There are no certificates</p>}
