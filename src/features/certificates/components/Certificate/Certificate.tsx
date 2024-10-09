@@ -5,11 +5,16 @@ import { Models } from "appwrite";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { moveCertificate } from "../../../../entities/certificates/services/certificate.service";
 
+interface MoveMutationData {
+  id: string,
+  isUp: boolean
+}
+
 export default function Certificate({ certificate, index, maxIndex }: { certificate: ICertificate | Models.Document, index: number, maxIndex: number }) {
   const queryClient = useQueryClient();
   
   const moveMutation = useMutation({
-    mutationFn: (data: any) => moveCertificate(data),
+    mutationFn: (data: MoveMutationData) => moveCertificate(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["certificates"] })
     }
