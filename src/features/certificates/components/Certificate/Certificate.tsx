@@ -3,7 +3,7 @@ import { IoArrowDownOutline, IoArrowUpOutline, IoCreateOutline, IoTrashOutline }
 import { ICertificate } from "../../../../entities/certificates/interfaces/certificate.interface";
 import { Models } from "appwrite";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { moveCertificate } from "../../../../entities/certificates/services/certificate.service";
+import { deleteCertificate, moveCertificate } from "../../../../entities/certificates/services/certificate.service";
 
 interface MoveMutationData {
   id: string,
@@ -20,6 +20,13 @@ export default function Certificate({ certificate, index, maxIndex }: { certific
     }
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteCertificate(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["certificates"] })
+    }
+  })
+
   const handleClickUp = () => {
     if (index == 0) {
       return;
@@ -34,7 +41,9 @@ export default function Certificate({ certificate, index, maxIndex }: { certific
     moveMutation.mutate({ id: certificate.$id, isUp: false });
   }
 
-  const handleDelete = () => {}
+  const handleDelete = () => {
+    deleteMutation.mutate(certificate.$id);
+  }
 
   return (
     <>
