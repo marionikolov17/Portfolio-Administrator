@@ -19,7 +19,7 @@ export default function MobileNavigation() {
         <Link to="/" className="mx-2">
           <IoClipboardOutline className="text-white text-lg" />
         </Link>
-        <Link to="/" className="mx-2">
+        <Link to="/certificates" className="mx-2">
           <IoTrophyOutline className="text-white text-lg" />
         </Link>
         <Link to="/notifications" className="mx-2">
