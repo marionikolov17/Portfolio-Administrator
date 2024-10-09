@@ -34,6 +34,8 @@ export default function Certificate({ certificate, index, maxIndex }: { certific
     moveMutation.mutate({ id: certificate.$id, isUp: false });
   }
 
+  const handleDelete = () => {}
+
   return (
     <>
       <div className="w-full flex flex-wrap items-center overflow-hidden min-h-14 bg-primary-900 rounded-lg shadow">
@@ -51,7 +53,10 @@ export default function Certificate({ certificate, index, maxIndex }: { certific
         {/* Buttons */}
         <div className="flex items-center justify-center px-4 w-full grow py-4 border-t border-t-primary-800 sm:border-none sm:py-0 sm:grow-0 sm:w-auto">
           <Link to={`/certificates/edit/${certificate.$id}`}><IoCreateOutline className="text-brand-600 hover:text-brand-700 text-2xl cursor-pointer mx-1.5"/></Link>
-          <IoTrashOutline className="text-red-600 hover:text-red-700 text-2xl cursor-pointer mx-1.5"/>
+          <IoTrashOutline 
+            className="text-red-600 hover:text-red-700 text-2xl cursor-pointer mx-1.5"
+            onClick={handleDelete}
+          />
           <IoArrowUpOutline 
             className="text-white hover:text-brand-600 text-2xl cursor-pointer mx-1.5"
             onClick={handleClickUp}

@@ -46,6 +46,37 @@ export const getCertificates = async () => {
     return response;
 }
 
+export const deleteCertificate = async (id: string) => {
+    // Change all indexes
+    const response = await databases.listDocuments(
+        DATABASE_ID,
+        CERTIFICATES_COLLECTION_ID,
+        [
+            Query.orderAsc("index")
+        ]
+    );
+    const documents = response.documents;
+    let removableIndex = 0;
+
+    for (let i = 0; i < documents.length; i++) {
+        if (documents[i].$id === id) {
+            removableIndex = i;
+        };
+    }
+
+    for (let i = removableIndex + 1; i < documents.length; i++) {
+        await databases.updateDocument(
+            DATABASE_ID,
+            CERTIFICATES_COLLECTION_ID,
+            documents[i].$id,
+            { index: i - 1 }
+        )
+    }
+
+    // Delete actual element
+    await databases.deleteDocument(DATABASE_ID, CERTIFICATES_COLLECTION_ID, id);
+}
+
 export const moveCertificate = async (data: { id: string, isUp: boolean }) => {
     const response = await databases.listDocuments(
         DATABASE_ID,
