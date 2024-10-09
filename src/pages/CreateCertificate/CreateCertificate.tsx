@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { BsFiletypePng } from "react-icons/bs";
 import { allowedImageMimeTypes } from "../../shared/constants/allowed-files.constant";
 import ImageVisualizer from "../../features/certificates/components/ImageVisualizer/ImageVisualizer";
+import { createCertificate } from "../../entities/certificates/services/certificate.service";
 
 export default function CreateCertificate() {
   const [error, setError] = useState<string | null>(null);
   const [image, setImage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -15,7 +17,10 @@ export default function CreateCertificate() {
     setValue,
   } = useForm();
 
-  const onCreate = async (data) => {};
+  const onCreate = async (data: any) => {
+    console.log(data);
+    console.log(await createCertificate(data))
+  };
 
   const handleDrop = (e: any) => {
     e.preventDefault();
@@ -43,7 +48,7 @@ export default function CreateCertificate() {
       setImage(readerEvent.target?.result as any);
     };
     setError(null);
-    setValue("imageUri", file);
+    setValue("imageUrl", file);
   };
 
   const onImageRemove = () => {
