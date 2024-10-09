@@ -1,3 +1,4 @@
+import { Query } from "appwrite";
 import { databases, ID, storage } from "../../../lib/appwrite"
 import { CERTIFICATES_COLLECTION_ID, DATABASE_ID } from "../../../shared/constants/database.constant";
 import { BUCKET_ID } from "../../../shared/constants/storage.constant";
@@ -29,6 +30,18 @@ export const createCertificate = async (data: CreateCertificateData) => {
             index: documents
         }
     );
+
+    return response;
+}
+
+export const getCertificates = async () => {
+    const response = await databases.listDocuments(
+        DATABASE_ID,
+        CERTIFICATES_COLLECTION_ID,
+        [
+            Query.orderAsc("index")
+        ]
+    )
 
     return response;
 }
