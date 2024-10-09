@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { IoArrowDownOutline, IoArrowUpOutline, IoCreateOutline, IoTrashOutline } from "react-icons/io5";
+import { ICertificate } from "../../../../entities/certificates/interfaces/certificate.interface";
+import { Models } from "appwrite";
 
-export default function Certificate() {
+export default function Certificate({ certificate }: { certificate: ICertificate | Models.Document }) {
   return (
     <>
       <div className="w-full flex flex-wrap items-center overflow-hidden min-h-14 bg-primary-900 rounded-lg shadow">
@@ -9,12 +11,12 @@ export default function Certificate() {
         <div className="shrink-0 w-max h-full flex justify-center overflow-hidden">
           <img
             className="object-cover w-20 max-h-14"
-            src="https://cloud.appwrite.io/v1/storage/buckets/670571e3001ab6e74ef8/files/670572110013b202a8cc/view?project=66fe98e400350a2afae6&project=66fe98e400350a2afae6&mode=admin"
+            src={certificate.imageUrl}
             alt="certificate image"
           />
         </div>
         <div className="grow shrink-0 flex items-center">
-          <h3 className="ms-4 text-white font-bold">Programming Fundam...</h3>
+          <h3 className="ms-4 text-white font-bold">{certificate.title}</h3>
         </div>
         {/* Buttons */}
         <div className="flex items-center justify-center px-4 w-full grow py-4 border-t border-t-primary-800 sm:border-none sm:py-0 sm:grow-0 sm:w-auto">

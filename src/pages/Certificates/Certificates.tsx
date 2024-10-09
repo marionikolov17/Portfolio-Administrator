@@ -1,8 +1,18 @@
 import { MdOutlineNoteAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Certificate from "../../features/certificates/components/Certificate/Certificate";
+import { useQuery } from "@tanstack/react-query";
+import { getCertificates } from "../../entities/certificates/services/certificate.service";
+import Loader from "../../shared/components/Loader/Loader";
 
 export default function Certificates() {
+    const { isPending, isError, data, error } = useQuery({
+        queryKey: ["certificates"],
+        queryFn: getCertificates
+    });
+
+    const certificates = data?.documents;
+
     return (
         <>
             <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
@@ -12,11 +22,18 @@ export default function Certificates() {
                         <MdOutlineNoteAdd  className="me-2 text-xl"/>
                         Add Certificate
                     </Link>
+                    {isPending &&
+                        <div className="w-full flex justify-center items-center mt-6">
+                            <Loader />
+                        </div>
+                    }
                     {/* Fetched certificates here */}
-                    <div className="w-full mt-6 flex flex-col gap-y-4">
-                        <Certificate />
-                        <Certificate />
-                    </div>
+                    {data && <div className="w-full mt-6 flex flex-col gap-y-4">
+                        {certificates?.map(certificate => (
+                            <Certificate key={certificate.$id} certificate={certificate}/>
+                        ))}
+                    </div>}
+                    {data?.total === 0 && <p className="mt-6 text-white">There are no certificates</p>}
                 </div>
             </section>
         </>
