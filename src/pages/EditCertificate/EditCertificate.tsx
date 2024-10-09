@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 export default function EditCertificate() {
   const handleDrop = () => {};
 
-  const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  };
 
   return (
     <>
