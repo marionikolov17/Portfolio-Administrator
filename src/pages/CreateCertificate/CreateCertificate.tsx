@@ -15,7 +15,7 @@ export default function CreateCertificate() {
     setValue,
   } = useForm();
 
-  const onCreate = async () => {};
+  const onCreate = async (data) => {};
 
   const handleDrop = (e: any) => {
     e.preventDefault();
