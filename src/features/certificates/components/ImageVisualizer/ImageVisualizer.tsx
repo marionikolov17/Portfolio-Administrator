@@ -4,8 +4,8 @@ export default function ImageVisualizer({
   image,
   onImageRemove,
 }: {
-  image: any;
-  onImageRemove: any;
+  image: string;
+  onImageRemove: () => void;
 }) {
   return (
     <>

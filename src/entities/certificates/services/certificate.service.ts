@@ -1,13 +1,14 @@
 import { databases, ID, storage } from "../../../lib/appwrite"
 import { CERTIFICATES_COLLECTION_ID, DATABASE_ID } from "../../../shared/constants/database.constant";
 import { BUCKET_ID } from "../../../shared/constants/storage.constant";
+import { CreateCertificateData } from "../interfaces/certificate.interface";
 
-export const createCertificate = async (data: Record<string, any>) => {
+export const createCertificate = async (data: CreateCertificateData) => {
     // Upload file
     const createdFileResponse = await storage.createFile(
         BUCKET_ID,
         ID.unique(),
-        data.imageUrl
+        data?.imageUrl as File
     )
 
     // Get file url
@@ -23,9 +24,9 @@ export const createCertificate = async (data: Record<string, any>) => {
         ID.unique(),
         {
             title: data.title,
-            credentialUrl: data.creadentialUrl,
+            credentialUrl: data.credentialUrl,
             imageUrl: url,
-            index: documents - 1
+            index: documents
         }
     );
 

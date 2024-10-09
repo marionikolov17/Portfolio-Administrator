@@ -1,14 +1,18 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsFiletypePng } from "react-icons/bs";
 import { allowedImageMimeTypes } from "../../shared/constants/allowed-files.constant";
 import ImageVisualizer from "../../features/certificates/components/ImageVisualizer/ImageVisualizer";
 import { createCertificate } from "../../entities/certificates/services/certificate.service";
+import { useNavigate } from "react-router-dom";
+import { CreateCertificateData } from "../../entities/certificates/interfaces/certificate.interface";
 
 export default function CreateCertificate() {
   const [error, setError] = useState<string | null>(null);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -17,12 +21,20 @@ export default function CreateCertificate() {
     setValue,
   } = useForm();
 
-  const onCreate = async (data: any) => {
-    console.log(data);
-    console.log(await createCertificate(data))
+  const onCreate = async (data: CreateCertificateData) => {
+    setIsLoading(true);
+
+    try {
+      await createCertificate(data);
+      navigate("/certificates");
+    } catch (error: unknown) {
+      setError(error as string);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleDrop = (e: any) => {
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const files = e.dataTransfer.files;
     const file = files[files.length - 1];
@@ -45,7 +57,7 @@ export default function CreateCertificate() {
     reader.readAsDataURL(file);
 
     reader.onload = (readerEvent) => {
-      setImage(readerEvent.target?.result as any);
+      setImage(readerEvent.target?.result as string);
     };
     setError(null);
     setValue("imageUrl", file);
@@ -142,7 +154,7 @@ export default function CreateCertificate() {
                 {...register("credentialUrl", {
                   pattern: {
                     value:
-                      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+                      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
                     message: "This field should be valid Url",
                   },
                 })}
@@ -155,7 +167,7 @@ export default function CreateCertificate() {
                 </p>
               )}
             </div>
-            <button className="mt-6 w-full rounded-lg flex justify-center py-2 text-white bg-brand-600 hover:bg-brand-700">
+            <button disabled={isLoading} className="mt-6 w-full rounded-lg flex justify-center py-2 text-white bg-brand-600 hover:bg-brand-700 disabled:bg-brand-200">
               Create
             </button>
             {error && (
