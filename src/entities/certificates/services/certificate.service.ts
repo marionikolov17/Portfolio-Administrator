@@ -45,3 +45,12 @@ export const getCertificates = async () => {
 
     return response;
 }
+
+export const moveCertificate = async (id: string, index: number) => {
+    await databases.updateDocument(
+        DATABASE_ID,
+        CERTIFICATES_COLLECTION_ID,
+        id,
+        { index: index }
+    )
+}
