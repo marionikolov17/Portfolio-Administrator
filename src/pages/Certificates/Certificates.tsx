@@ -27,6 +27,7 @@ export default function Certificates() {
                             <Loader />
                         </div>
                     }
+                    {isError && <p className="text-red-600">{error.message}</p>}
                     {/* Fetched certificates here */}
                     {data && <div className="w-full mt-6 flex flex-col gap-y-4">
                         {certificates?.map(certificate => (
