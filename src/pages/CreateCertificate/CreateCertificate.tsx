@@ -8,7 +8,14 @@ export default function CreateCertificate() {
   const [error, setError] = useState<string | null>(null);
   const [image, setImage] = useState();
 
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
+  const onCreate = async () => {};
 
   const handleDrop = (e: any) => {
     e.preventDefault();
@@ -49,7 +56,7 @@ export default function CreateCertificate() {
       <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
         <div className="w-full sm:w-[450px] h-max overflow-x-hidden py-1 px-1">
           <h1 className="text-white font-bold text-2xl">Create Certificate</h1>
-          <form className="mt-8">
+          <form className="mt-8" onSubmit={handleSubmit(onCreate)}>
             {/* Certificate Name */}
             <div className="mt-6 w-full">
               <label
@@ -61,56 +68,60 @@ export default function CreateCertificate() {
               <input
                 type="text"
                 id="title"
-                required
+                {...register("title", { required: "This field is required" })}
                 placeholder="e.g ReactJS - June 2024"
                 className="py-2 px-4 w-full bg-transparent outline-none rounded-lg text-sm border border-primary-800 text-white mt-1 transition duration-300 focus:ring-2 focus:ring-brand-600"
               />
+              {errors.title && (
+                <p className="text-red-600 text-sm mt-2">
+                  {errors.title.message as string}
+                </p>
+              )}
             </div>
             {/* Certificate Image */}
-            {!image && <div className="col-span-full mt-4">
-              <label
-                htmlFor="cover-photo"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                Upload photo
-              </label>
-              <div
-                onDrop={handleDrop}
-                onDragOver={(e) => e.preventDefault()}
-                className="mt-2 flex justify-center rounded-lg border border-dashed border-primary-800 px-6 py-10"
-              >
-                <div className="text-center">
-                  {/* <PhotoIcon aria-hidden="true" className="mx-auto h-12 w-12 text-gray-300" /> */}
-                  <BsFiletypePng className="mx-auto h-12 w-12 text-gray-300" />
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md font-semibold text-mainGreen"
-                    >
-                      <span className="text-white">Upload a file</span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        type="file"
-                        className="sr-only"
-                        onChange={(e) => onImageUpload(e)}
-                      />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
+            {!image && (
+              <div className="col-span-full mt-4">
+                <label
+                  htmlFor="cover-photo"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
+                  Upload photo
+                </label>
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={(e) => e.preventDefault()}
+                  className="mt-2 flex justify-center rounded-lg border border-dashed border-primary-800 px-6 py-10"
+                >
+                  <div className="text-center">
+                    {/* <PhotoIcon aria-hidden="true" className="mx-auto h-12 w-12 text-gray-300" /> */}
+                    <BsFiletypePng className="mx-auto h-12 w-12 text-gray-300" />
+                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                      <label
+                        htmlFor="file-upload"
+                        className="relative cursor-pointer rounded-md font-semibold text-mainGreen"
+                      >
+                        <span className="text-white">Upload a file</span>
+                        <input
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          className="sr-only"
+                          onChange={(e) => onImageUpload(e)}
+                        />
+                      </label>
+                      <p className="pl-1">or drag and drop</p>
+                    </div>
+                    <p className="text-xs leading-5 text-gray-600">
+                      PNG, JPG, GIF up to 50MB
+                    </p>
                   </div>
-                  <p className="text-xs leading-5 text-gray-600">
-                    PNG, JPG, GIF up to 50MB
-                  </p>
                 </div>
               </div>
-            </div>}
+            )}
 
-            {image &&
-                <ImageVisualizer 
-                    image={image}
-                    onImageRemove={onImageRemove}
-                />
-            }
+            {image && (
+              <ImageVisualizer image={image} onImageRemove={onImageRemove} />
+            )}
 
             {/* Certificate Credential URL */}
             <div className="mt-4 w-full">
@@ -123,15 +134,28 @@ export default function CreateCertificate() {
               <input
                 type="text"
                 id="credentialUrl"
-                required
+                {...register("credentialUrl", {
+                  pattern: {
+                    value:
+                      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+                    message: "This field should be valid Url",
+                  },
+                })}
                 placeholder="e.g https://www.cert.com/"
                 className="py-2 px-4 w-full bg-transparent outline-none rounded-lg text-sm border border-primary-800 text-white mt-1 transition duration-300 focus:ring-2 focus:ring-brand-600"
               />
+              {errors.credentialUrl && (
+                <p className="text-red-600 text-sm mt-2">
+                  {errors.credentialUrl.message as string}
+                </p>
+              )}
             </div>
             <button className="mt-6 w-full rounded-lg flex justify-center py-2 text-white bg-brand-600 hover:bg-brand-700">
               Create
             </button>
-            {error && <p className="text-center text-red-600 text-sm mt-2">{error}</p>}
+            {error && (
+              <p className="text-center text-red-600 text-sm mt-2">{error}</p>
+            )}
           </form>
         </div>
       </section>
