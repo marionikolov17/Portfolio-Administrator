@@ -131,6 +131,7 @@ export default function CreateCertificate() {
             <button className="mt-6 w-full rounded-lg flex justify-center py-2 text-white bg-brand-600 hover:bg-brand-700">
               Create
             </button>
+            {error && <p className="text-center text-red-600 text-sm mt-2">{error}</p>}
           </form>
         </div>
       </section>
