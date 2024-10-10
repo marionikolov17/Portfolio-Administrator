@@ -20,7 +20,7 @@ export default function MobileNavigation() {
           <IoClipboardOutline className="text-white text-lg" />
         </Link>
         <Link to="/certificates" className="mx-2">
-          <IoTrophyOutline className="text-white text-lg" />
+          <IoTrophyOutline className={`${location.pathname.startsWith("/certificates") ? "text-brand-600" : "text-white"} text-lg`} />
         </Link>
         <Link to="/notifications" className="mx-2">
           <IoNotificationsOutline className={`${location.pathname === "/notifications" ? "text-brand-600" : "text-white"} text-lg`} />

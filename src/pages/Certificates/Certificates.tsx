@@ -34,7 +34,7 @@ export default function Certificates() {
                             <Certificate key={certificate.$id} certificate={certificate} index={index} maxIndex={data.total - 1}/>
                         ))}
                     </div>}
-                    {data?.total === 0 && <p className="mt-6 text-white">There are no certificates</p>}
+                    {data?.total === 0 && <p className="mt-0 text-white">There are no certificates</p>}
                 </div>
             </section>
         </>

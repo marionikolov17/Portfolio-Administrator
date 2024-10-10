@@ -1,1 +1,1 @@
-export const BUCKET_ID = "670571e3001ab6e74ef8"
+export const BUCKET_ID = import.meta.env.VITE_BUCKET_ID

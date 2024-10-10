@@ -64,7 +64,7 @@ export default function Notifications() {
                             <NotificationContainer key={notification.$id} notification={notification}/>
                         ))}
                     </div>}
-                    {data?.total == 0 && <p className="my-6 text-white text-base">There are no notifications</p>}
+                    {data?.total == 0 && <p className="my-4 ms-4 text-white text-base">There are no notifications</p>}
                 </div>
             </section>
         </>
