@@ -47,7 +47,7 @@ export default function EditCertificate() {
         }
       )
       navigate("/certificates");
-    } catch (err) {
+    } catch (err: unknown) {
       console.log(err)
       setEditErr(err.message as string)
     } finally {
