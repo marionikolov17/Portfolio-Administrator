@@ -2,7 +2,7 @@ import { Query } from "appwrite";
 import { databases, ID, storage } from "../../../lib/appwrite"
 import { CERTIFICATES_COLLECTION_ID, DATABASE_ID } from "../../../shared/constants/database.constant";
 import { BUCKET_ID } from "../../../shared/constants/storage.constant";
-import { CreateCertificateData, ICertificate } from "../interfaces/certificate.interface";
+import { CreateCertificateData } from "../interfaces/certificate.interface";
 
 export const createCertificate = async (data: CreateCertificateData) => {
     // Upload file
@@ -56,7 +56,23 @@ export const getCertificate = async (id: string) => {
     return response;
 }
 
-export const updateCertificate = async (data: { id: string, newData: any }) => {
+export const updateCertificate = async (data: { id: string, newData: Record<string, string | number>, file: File | null | undefined }) => {
+    if (data.file !== null || data.file !== undefined) {
+        const createdFileResponse = await storage.createFile(
+            BUCKET_ID,
+            ID.unique(),
+            data.file as File
+        )
+        const url = storage.getFileDownload(BUCKET_ID, createdFileResponse.$id);
+        
+        return await databases.updateDocument(
+            DATABASE_ID,
+            CERTIFICATES_COLLECTION_ID,
+            data.id,
+            {...data.newData, imageUrl: url}
+        )
+    }
+
     await databases.updateDocument(
         DATABASE_ID,
         CERTIFICATES_COLLECTION_ID,
