@@ -57,7 +57,7 @@ export const getCertificate = async (id: string) => {
 }
 
 export const updateCertificate = async (data: { id: string, newData: Record<string, string | number>, file: File | null | undefined }) => {
-    if (data.file !== null || data.file !== undefined) {
+    if (data.file !== null && data.file !== undefined) {
         const createdFileResponse = await storage.createFile(
             BUCKET_ID,
             ID.unique(),
@@ -69,7 +69,11 @@ export const updateCertificate = async (data: { id: string, newData: Record<stri
             DATABASE_ID,
             CERTIFICATES_COLLECTION_ID,
             data.id,
-            {...data.newData, imageUrl: url}
+            {
+                title: data.newData.title,
+                credentialUrl: data.newData.credentialUrl,
+                imageUrl: url
+            }
         )
     }
 
@@ -77,7 +81,11 @@ export const updateCertificate = async (data: { id: string, newData: Record<stri
         DATABASE_ID,
         CERTIFICATES_COLLECTION_ID,
         data.id,
-        data.newData
+        {
+            title: data.newData.title,
+            credentialUrl: data.newData.credentialUrl,
+            imageUrl: data.newData.imageUrl
+        }
     )
 }
 
