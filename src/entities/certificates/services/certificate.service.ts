@@ -46,6 +46,49 @@ export const getCertificates = async () => {
     return response;
 }
 
+export const getCertificate = async (id: string) => {
+    const response = await databases.getDocument(
+        DATABASE_ID,
+        CERTIFICATES_COLLECTION_ID,
+        id
+    )
+
+    return response;
+}
+
+export const updateCertificate = async (data: { id: string, newData: Record<string, string | number>, file: File | null | undefined }) => {
+    if (data.file !== null && data.file !== undefined) {
+        const createdFileResponse = await storage.createFile(
+            BUCKET_ID,
+            ID.unique(),
+            data.file as File
+        )
+        const url = storage.getFileDownload(BUCKET_ID, createdFileResponse.$id);
+        
+        return await databases.updateDocument(
+            DATABASE_ID,
+            CERTIFICATES_COLLECTION_ID,
+            data.id,
+            {
+                title: data.newData.title,
+                credentialUrl: data.newData.credentialUrl,
+                imageUrl: url
+            }
+        )
+    }
+
+    await databases.updateDocument(
+        DATABASE_ID,
+        CERTIFICATES_COLLECTION_ID,
+        data.id,
+        {
+            title: data.newData.title,
+            credentialUrl: data.newData.credentialUrl,
+            imageUrl: data.newData.imageUrl
+        }
+    )
+}
+
 export const deleteCertificate = async (id: string) => {
     // Change all indexes
     const response = await databases.listDocuments(

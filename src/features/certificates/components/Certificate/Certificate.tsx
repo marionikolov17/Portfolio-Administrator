@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Models } from "appwrite";
 import { IoArrowDownOutline, IoArrowUpOutline, IoCreateOutline, IoTrashOutline } from "react-icons/io5";
 import { ICertificate } from "../../../../entities/certificates/interfaces/certificate.interface";
-import { Models } from "appwrite";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCertificate, moveCertificate } from "../../../../entities/certificates/services/certificate.service";
 
 interface MoveMutationData {
@@ -11,6 +12,7 @@ interface MoveMutationData {
 }
 
 export default function Certificate({ certificate, index, maxIndex }: { certificate: ICertificate | Models.Document, index: number, maxIndex: number }) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const queryClient = useQueryClient();
   
   const moveMutation = useMutation({
@@ -49,12 +51,16 @@ export default function Certificate({ certificate, index, maxIndex }: { certific
     <>
       <div className="w-full flex flex-wrap items-center overflow-hidden min-h-14 bg-primary-900 rounded-lg shadow">
         {/* Certificate image */}
-        <div className="shrink-0 w-max h-full flex justify-center overflow-hidden">
+        <div className="shrink-0 w-max h-full flex justify-center overflow-hidden relative">
           <img
             className="object-cover w-20 max-h-14"
             src={certificate.imageUrl}
             alt="certificate image"
+            onLoad={() => setIsImageLoaded(true)}
           />
+          {!isImageLoaded && 
+            <div className="h-full w-20 skeleton-loading absolute"></div>
+          }
         </div>
         <div className="grow shrink-0 flex items-center">
           <h3 className="ms-4 text-white font-bold">{certificate.title}</h3>
