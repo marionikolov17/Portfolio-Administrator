@@ -47,6 +47,12 @@ export default function Certificate({ certificate, index, maxIndex }: { certific
     deleteMutation.mutate(certificate.$id);
   }
 
+  const displayCertificateName = () => {
+    if (certificate.title.length <= 26) return certificate.title;
+
+    return certificate.title.substring(0, 22) + "...";
+  }
+
   return (
     <>
       <div className="w-full flex flex-wrap items-center overflow-hidden min-h-14 bg-primary-900 rounded-lg shadow">
@@ -63,7 +69,8 @@ export default function Certificate({ certificate, index, maxIndex }: { certific
           }
         </div>
         <div className="grow shrink-0 flex items-center">
-          <h3 className="ms-4 text-white font-bold">{certificate.title}</h3>
+          <h3 className="ms-4 text-white font-bold xl:hidden">{displayCertificateName()}</h3>
+          <h3 className="ms-4 text-white font-bold hidden xl:inline-block">{certificate.title}</h3>
         </div>
         {/* Buttons */}
         <div className="flex items-center justify-center px-4 w-full grow py-4 border-t border-t-primary-800 sm:border-none sm:py-0 sm:grow-0 sm:w-auto">
