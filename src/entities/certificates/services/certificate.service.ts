@@ -46,6 +46,16 @@ export const getCertificates = async () => {
     return response;
 }
 
+export const getCertificate = async (id: string) => {
+    const response = await databases.getDocument(
+        DATABASE_ID,
+        CERTIFICATES_COLLECTION_ID,
+        id
+    )
+
+    return response;
+}
+
 export const updateCertificate = async (data: { id: string, newData: any }) => {
     await databases.updateDocument(
         DATABASE_ID,
