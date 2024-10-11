@@ -49,7 +49,7 @@ export default function EditCertificate() {
       navigate("/certificates");
     } catch (err: unknown) {
       console.log(err)
-      setEditErr(err.message as string)
+      setEditErr(JSON.stringify(err))
     } finally {
       setIsLoading(false);
     }
