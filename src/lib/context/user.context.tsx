@@ -36,19 +36,17 @@ export function UserProvider({ children }: { children: React.ReactElement }) {
     navigate("/login")
   }
 
-  async function init() {
-    try {
-      const loggedIn = await account.get();
-      setUser(loggedIn);
-    } catch {
-      setUser(null);
-      navigate("/login")
-    }
-  }
-
   useEffect(() => {
-    init();
-  }, []);
+    (async() => {
+      try {
+        const loggedIn = await account.get();
+        setUser(loggedIn);
+      } catch {
+        setUser(null);
+        navigate("/login")
+      }
+    })()
+  }, [navigate]);
 
   return (
     <UserContext.Provider value={{ current: user, login, logout, hasLoginError, isLoginLoading }}>
