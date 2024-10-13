@@ -12,7 +12,7 @@ export default function MobileNavigation() {
 
   return (
     <>
-      <div className="z-50 fixed bottom-0 w-full h-12 bg-primary-900 flex sm:hidden items-center justify-around">
+      <div className="z-40 fixed bottom-0 w-full h-12 bg-primary-900 flex sm:hidden items-center justify-around">
         <Link to="/" className="mx-2">
           <IoHomeOutline className={`${location.pathname === "/" ? "text-brand-600" : "text-white"} text-lg`} />
         </Link>

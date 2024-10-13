@@ -13,6 +13,8 @@ export function UserProvider({ children }: { children: React.ReactElement }) {
   const [user, setUser] = useState<Models.Session | null | Models.User<Models.Preferences>>(null);
   const [hasLoginError, setHasLoginError] = useState(false);
   const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [isInitLoading, setIsInitLoading] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const navigate = useNavigate();
 
@@ -38,18 +40,22 @@ export function UserProvider({ children }: { children: React.ReactElement }) {
 
   useEffect(() => {
     (async() => {
+      setIsInitLoading(true);
       try {
         const loggedIn = await account.get();
         setUser(loggedIn);
       } catch {
         setUser(null);
         navigate("/login")
+      } finally {
+        setIsInitLoading(false);
+        setIsFirstLoad(false);
       }
     })()
   }, [navigate]);
 
   return (
-    <UserContext.Provider value={{ current: user, login, logout, hasLoginError, isLoginLoading }}>
+    <UserContext.Provider value={{ current: user, login, logout, hasLoginError, isLoginLoading, isInitLoading, isFirstLoad }}>
       {children}
     </UserContext.Provider>
   );
