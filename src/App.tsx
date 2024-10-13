@@ -18,15 +18,18 @@ function App() {
         <>
           <Routes>
             <Route path="/" element={<MainLayout />}>
-              <Route index Component={Home}/>
-              <Route path="notifications" Component={Notifications}/>
-              <Route path="inbox" Component={Inbox}/>
-              <Route path="inbox/:messageId" Component={InboxMessage}/>
-              <Route path="certificates" Component={Certificates}/>
-              <Route path="certificates/create" Component={CreateCertificate}/>
-              <Route path="certificates/edit/:certificateId" Component={EditCertificate}/>
+              <Route index Component={Home} />
+              <Route path="notifications" Component={Notifications} />
+              <Route path="inbox" Component={Inbox} />
+              <Route path="inbox/:messageId" Component={InboxMessage} />
+              <Route path="certificates" Component={Certificates} />
+              <Route path="certificates/create" Component={CreateCertificate} />
+              <Route
+                path="certificates/edit/:certificateId"
+                Component={EditCertificate}
+              />
             </Route>
-            <Route path="/login" Component={Login}/>
+            <Route path="/login" Component={Login} />
           </Routes>
         </>
       </ErrorProvider>
