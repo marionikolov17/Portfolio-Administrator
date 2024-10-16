@@ -3,6 +3,7 @@ import { INotification } from "../../../../entities/notifications/interfaces/not
 import { Models } from "appwrite";
 import { FLAG_ICONS } from "../../../../shared/data/flag-icons";
 import moment from "moment";
+import displayIP from "../../../../shared/utils/displayIP";
 
 export default function ActivityContainer({ notification }: { notification: INotification | Models.Document }) {
     return (
@@ -15,7 +16,7 @@ export default function ActivityContainer({ notification }: { notification: INot
                     className="me-1 w-6 h-6 sm:w-8 sm:h-8"
                 />}
                 <p className="text-white font-medium text-sm sm:text-base">
-                    {notification?.actorIP !== null ? notification?.actorIP : "Unknown"}
+                    {notification?.actorIP !== null ? displayIP(notification?.actorIP as string) : "Unknown"}
                 </p>
                 <p className="text-white ms-2 text-sm sm:text-base">
                     {notification?.type === "visit" ? "Visited portfolio" : notification?.message}

@@ -4,6 +4,7 @@ import { Models } from "appwrite";
 import { FLAG_ICONS } from "../../../../shared/data/flag-icons";
 import moment from "moment";
 import { timeConverter } from "../../../../shared/utils/timeConverter";
+import displayIP from "../../../../shared/utils/displayIP";
 
 export default function NotificationContainer({ notification }: { notification: INotification | Models.Document }) {
     return (
@@ -18,7 +19,7 @@ export default function NotificationContainer({ notification }: { notification: 
                 />}
                 <div className="grow flex items-center">
                     <p className={`ms-2 text-white ${notification?.isRead ? "font-normal" : "font-bold"} text-sm sm:text-base`}>
-                        {notification?.actorIP !== null ? notification?.actorIP : "Unknown"}
+                        {notification?.actorIP !== null ? displayIP(notification?.actorIP as string) : "Unknown"}
                     </p>
                     <p className={`ms-2 text-white text-sm sm:text-base gap-x-2 ${notification?.isRead ? "font-normal" : "font-bold"}`}>
                         {notification?.type === "visit" ? `${notification?.message} ${timeConverter(notification?.totalTime)}` : notification?.message}
