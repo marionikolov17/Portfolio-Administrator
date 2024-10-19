@@ -1,6 +1,9 @@
 import { Models } from "appwrite";
 
-export const filterViewsDocuments = async (miliseconds: number, documents: Models.Document[]) => {
+export const filterTimeDocuments = async (
+  miliseconds: number,
+  documents: Models.Document[]
+) => {
   const endDate = Date.now();
   const startDate = new Date(endDate - miliseconds).getTime();
 
