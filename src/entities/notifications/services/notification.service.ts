@@ -1,30 +1,12 @@
 import { Query } from "appwrite";
 import { databases } from "../../../lib/appwrite"
 import { DATABASE_ID, NOTIFICATIONS_COLLECTION_ID } from "../../../shared/constants/database.constant"
+import { filterNotificationsDocuments } from "../helpers/notifications.helper";
 
 export const getNotifications = async (selectedTime: string, selectedType: string, limit: number | null = null) => {
     const filterArr: string[] = [];
-
-    // selected time filtering
-    if (selectedTime == "last-7") {
-        const endDate = new Date();
-        const startDate = new Date(endDate.getDate() - 7);
-        filterArr.push(
-            Query.and([
-                Query.greaterThanEqual("$createdAt", startDate.toISOString()),
-                Query.lessThanEqual("$createdAt", endDate.toISOString())
-            ])
-        );
-    } else if (selectedTime == "last-30") {
-        const endDate = new Date();
-        const startDate = new Date(endDate.getDate() - 30);
-        filterArr.push(
-            Query.and([
-                Query.greaterThanEqual("$createdAt", startDate.toISOString()),
-                Query.lessThanEqual("$createdAt", endDate.toISOString())
-            ])
-        );
-    }
+    const lastSevenMiliseconds = 604800000;
+    const lastThirtyMiliseconds = 2592000000;
 
     // selected type filtering
     if (selectedType == "visits") {
@@ -49,6 +31,13 @@ export const getNotifications = async (selectedTime: string, selectedType: strin
         NOTIFICATIONS_COLLECTION_ID,
         [...filterArr]
     )
+    const documents = response.documents;
+
+    if (selectedTime === "last-7") {
+        return filterNotificationsDocuments(lastSevenMiliseconds, documents);
+    } else if (selectedTime === "last-30") {
+        return filterNotificationsDocuments(lastThirtyMiliseconds, documents);
+    }
 
     return response;
 }
@@ -65,3 +54,4 @@ export const readNotifications = async () => {
 
     return response;
 }
+
