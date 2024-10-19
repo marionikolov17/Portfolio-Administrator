@@ -1,37 +1,29 @@
-import { Query } from "appwrite";
 import { databases } from "../../../lib/appwrite";
 import { DATABASE_ID, VIEWS_COLLECTION_ID } from "../../../shared/constants/database.constant";
+import { filterViewsDocuments } from "../helpers/views.helper";
 
 export const fetchViewsStatistics = async (period: string) => {
-    const queries = [];
+    const lastSevenMiliseconds = 604800000;
+    const lastThirtyMiliseconds = 2592000000;
+
+    const res = await databases.listDocuments(
+        DATABASE_ID,
+        VIEWS_COLLECTION_ID,
+    )
+    const documents = res.documents;
 
     // Selected period filtering
     if (period === "last-7") {
-        const endDate = new Date();
-        const startDate = new Date(endDate.getDate() - 7);
-        queries.push(
-            Query.and([
-                Query.greaterThanEqual("$createdAt", startDate.toISOString()),
-                Query.lessThanEqual("$createdAt", endDate.toISOString())
-            ])
-        );
+        return filterViewsDocuments(lastSevenMiliseconds, documents)
     }
 
     if (period === "last-30") {
-        const endDate = new Date();
-        const startDate = new Date(endDate.getDate() - 30);
-        queries.push(
-            Query.and([
-                Query.greaterThanEqual("$createdAt", startDate.toISOString()),
-                Query.lessThanEqual("$createdAt", endDate.toISOString())
-            ])
-        );
+        return filterViewsDocuments(lastThirtyMiliseconds, documents)
     }
 
     const response = await databases.listDocuments(
         DATABASE_ID,
         VIEWS_COLLECTION_ID,
-        queries
     )
 
     return response;
