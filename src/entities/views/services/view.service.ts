@@ -1,6 +1,6 @@
 import { databases } from "../../../lib/appwrite";
 import { DATABASE_ID, VIEWS_COLLECTION_ID } from "../../../shared/constants/database.constant";
-import { filterViewsDocuments } from "../helpers/views.helper";
+import { filterTimeDocuments } from "../../../shared/utils/filterTimeDocuments";
 
 export const fetchViewsStatistics = async (period: string) => {
     const lastSevenMiliseconds = 604800000;
@@ -14,11 +14,11 @@ export const fetchViewsStatistics = async (period: string) => {
 
     // Selected period filtering
     if (period === "last-7") {
-        return filterViewsDocuments(lastSevenMiliseconds, documents)
+        return filterTimeDocuments(lastSevenMiliseconds, documents)
     }
 
     if (period === "last-30") {
-        return filterViewsDocuments(lastThirtyMiliseconds, documents)
+        return filterTimeDocuments(lastThirtyMiliseconds, documents)
     }
 
     const response = await databases.listDocuments(
