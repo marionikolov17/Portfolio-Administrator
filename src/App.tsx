@@ -12,6 +12,7 @@ import { ErrorProvider } from "./shared/context/error.context";
 import EditCertificate from "./pages/EditCertificate/EditCertificate";
 import Projects from "./pages/Projects/Projects";
 import CreateProject from "./pages/CreateProject/CreateProject";
+import { CreateProjectProvider } from "./entities/projects/contexts/create-project.context";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
                 Component={EditCertificate}
               />
               <Route path="projects" Component={Projects} />
-              <Route path="projects/create" Component={CreateProject} />
+              <Route path="projects/create" element={<CreateProjectProvider><CreateProject /></CreateProjectProvider>} />
             </Route>
             <Route path="/login" Component={Login} />
           </Routes>
