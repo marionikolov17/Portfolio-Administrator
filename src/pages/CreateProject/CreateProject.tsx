@@ -6,7 +6,7 @@ import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIco
 import { useCreateProject } from "../../entities/projects/contexts/create-project.context";
 
 export default function CreateProject() {
-  const { isIconsShow } = useCreateProject();
+  const { isIconsShow, setIsIconsShow } = useCreateProject();
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function CreateProject() {
                     placeholder="e.g Front-End"
                     className="py-2 px-4 bg-transparent outline-none rounded-lg text-sm border border-primary-800 text-white mt-1 transition duration-300 focus:ring-2 focus:ring-brand-600"
                   />
-                  <CiCirclePlus className="text-3xl ms-4 cursor-pointer hover:text-brand-600 text-white" />
+                  <CiCirclePlus className="text-3xl ms-4 cursor-pointer hover:text-brand-600 text-white" onClick={() => setIsIconsShow(true)} />
                   {/* Selected */}
                   {/* Technology container */}
                   <div className="relative p-4">
