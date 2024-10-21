@@ -11,7 +11,8 @@ export default function AddIconsForm() {
     return (
         <>
             <div className="absolute z-20 w-full h-screen flex items-start justify-center">
-                <div className="w-96 h-96 overflow-y-scroll rounded-lg shadow bg-primary-900 no-scrollbar">
+                <div className="-z-50 w-full h-full absolute"></div>
+                <div className="w-96 h-96 overflow-y-scroll rounded-lg shadow bg-primary-900 no-scrollbar z-10">
                     <input 
                         type="text" 
                         placeholder="Search..."

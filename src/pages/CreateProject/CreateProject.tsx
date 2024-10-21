@@ -3,10 +3,11 @@ import { IoAddOutline, IoCloseOutline } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
 import { SiReact } from "react-icons/si";
 import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
+import { CreateProjectProvider } from "../../entities/projects/contexts/create-project.context";
 
 export default function CreateProject() {
   return (
-    <>
+    <CreateProjectProvider>
       <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
         <div className="w-full 2xl:w-[70%] h-max overflow-x-hidden py-1 px-1 relative">
           <AddIconsForm />
@@ -201,6 +202,6 @@ export default function CreateProject() {
           </div>
         </div>
       </section>
-    </>
+    </CreateProjectProvider>
   );
 }
