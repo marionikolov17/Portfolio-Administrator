@@ -15,7 +15,7 @@ export default function DesktopNavigation() {
                     <NavigationButton to="/" isActive={location.pathname === "/"} title="Home" icon="home" />
                     <NavigationButton to="/notifications" isActive={location.pathname === "/notifications"} title="Notifications" icon="notifications" />
                     <NavigationButton to="/inbox" isActive={location.pathname.startsWith("/inbox")} title="Inbox" icon="inbox" />
-                    <NavigationButton to="/" isActive={false} title="Projects" icon="projects" />
+                    <NavigationButton to="/projects" isActive={location.pathname.startsWith("/projects")} title="Projects" icon="projects" />
                     <NavigationButton to="/certificates" isActive={location.pathname.startsWith("/certificates")} title="Certificates" icon="certificates" />
                 </div>
             </nav>
