@@ -10,6 +10,7 @@ import CreateCertificate from "./pages/CreateCertificate/CreateCertificate";
 import { UserProvider } from "./lib/context/user.context";
 import { ErrorProvider } from "./shared/context/error.context";
 import EditCertificate from "./pages/EditCertificate/EditCertificate";
+import Projects from "./pages/Projects/Projects";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                 path="certificates/edit/:certificateId"
                 Component={EditCertificate}
               />
+              <Route path="projects" Component={Projects} />
             </Route>
             <Route path="/login" Component={Login} />
           </Routes>
