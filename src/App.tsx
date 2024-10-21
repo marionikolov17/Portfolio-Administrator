@@ -11,6 +11,7 @@ import { UserProvider } from "./lib/context/user.context";
 import { ErrorProvider } from "./shared/context/error.context";
 import EditCertificate from "./pages/EditCertificate/EditCertificate";
 import Projects from "./pages/Projects/Projects";
+import CreateProject from "./pages/CreateProject/CreateProject";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                 Component={EditCertificate}
               />
               <Route path="projects" Component={Projects} />
+              <Route path="projects/create" Component={CreateProject} />
             </Route>
             <Route path="/login" Component={Login} />
           </Routes>
