@@ -34,7 +34,8 @@ import {
 
 const iconClassName = "text-2xl me-2";
 
-export const icons = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const techIcons: Record<string, any> = {
   react: <SiReact key={1} className={iconClassName + " text-[#61dbfb]"} />,
   vite: <SiVite key={2} className={iconClassName + " text-[#ffc119]"} />,
   redux: <SiRedux key={3} className={iconClassName + " text-[#764abc]"} />,

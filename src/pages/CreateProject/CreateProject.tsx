@@ -2,13 +2,15 @@ import { CiCirclePlus, CiImageOn } from "react-icons/ci";
 import { IoAddOutline, IoCloseOutline } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
 import { SiReact } from "react-icons/si";
+import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 
 export default function CreateProject() {
   return (
     <>
       <section className="w-full flex justify-center py-10 px-4 no-scrollbar">
-        <div className="w-full 2xl:w-[70%] h-max overflow-x-hidden py-1 px-1">
-          <div className="w-full">
+        <div className="w-full 2xl:w-[70%] h-max overflow-x-hidden py-1 px-1 relative">
+          <AddIconsForm />
+          <div className="w-full blur-md">
             <form className="w-full px-4 pb-4">
               {/* Project Header information */}
               <h1 className="text-white font-bold text-2xl">Create Project</h1>

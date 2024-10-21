@@ -1,4 +1,5 @@
 export function sortIconsByQuery(iconKeys: string[], query: string) {
+  if (query === "") return iconKeys;  
   return iconKeys.sort((a, b) => {
     // Convert both the icon key and the query to lowercase for case-insensitive comparison
     const lowerA = a.toLowerCase();
