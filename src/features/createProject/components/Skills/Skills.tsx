@@ -1,11 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { IoAddOutline } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
-
-interface Skill {
-  index: number;
-  text: string;
-}
+import { Skill } from "../../../../entities/projects/interfaces/project-inputs.interface";
 
 interface InputProps {
   addedSkills: Skill[];

@@ -1,14 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
 import { allowedImageMimeTypes } from "../../../../shared/constants/allowed-files.constant";
-
-interface Image {
-  index: number;
-  file: File;
-  imageSrc: any;
-}
+import { Image } from "../../../../entities/projects/interfaces/project-inputs.interface";
 
 interface InputProps {
   addedImages: Image[];

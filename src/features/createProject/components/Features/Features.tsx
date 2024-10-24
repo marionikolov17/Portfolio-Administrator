@@ -1,11 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
-
-interface Feature {
-  index: number;
-  text: string;
-}
+import { Feature } from "../../../../entities/projects/interfaces/project-inputs.interface";
 
 interface InputProps {
   addedFeatures: Feature[];
