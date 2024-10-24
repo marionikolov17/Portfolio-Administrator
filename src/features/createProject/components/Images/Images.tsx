@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
 import { allowedImageMimeTypes } from "../../../../shared/constants/allowed-files.constant";
@@ -16,6 +16,8 @@ interface InputProps {
 }
 
 export default function Images({ addedImages, setAddedImages }: InputProps) {
+  const [error, setError] = useState(false);
+
   const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files || [];
     const file = files[files.length - 1];
@@ -26,6 +28,7 @@ export default function Images({ addedImages, setAddedImages }: InputProps) {
     // Add file validation here
     if (!allowedImageMimeTypes.includes(file.type)) {
       // Show message
+      return setError(true);
     }
 
     // Visualize image
@@ -54,6 +57,7 @@ export default function Images({ addedImages, setAddedImages }: InputProps) {
         return newImages;
       });
     };
+    setError(false);
   };
 
   const handleDeleteImage = (index: number) => {
@@ -93,6 +97,7 @@ export default function Images({ addedImages, setAddedImages }: InputProps) {
             <CiCirclePlus className="text-4xl cursor-pointer hover:text-brand-600 text-white" />
           </label>
         </div>
+        {error && <p className="text-red-500 text-sm mt-1">Only images allowed!</p>}
       </div>
     </>
   );
