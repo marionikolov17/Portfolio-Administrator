@@ -1,5 +1,4 @@
 import { CiImageOn } from "react-icons/ci";
-import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 import { useCreateProject } from "../../entities/projects/contexts/create-project.context";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -7,12 +6,14 @@ import Features from "../../features/createProject/components/Features/Features"
 import Skills from "../../features/createProject/components/Skills/Skills";
 import Images from "../../features/createProject/components/Images/Images";
 import TechStack from "../../features/createProject/components/TechStack/TechStack";
-import { Feature, Image, Skill } from "../../entities/projects/interfaces/project-inputs.interface";
+import { Feature, Image, Skill, Tech } from "../../entities/projects/interfaces/project-inputs.interface";
+import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 
 export default function CreateProject() {
   const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
   const [addedSkills, setAddedSkills] = useState<Skill[]>([]);
   const [addedImages, setAddedImages] = useState<Image[]>([]);
+  const [addedTech, setAddedTech] = useState<Tech[]>([]);
 
   const { isIconsShow } = useCreateProject();
 
@@ -99,7 +100,7 @@ export default function CreateProject() {
                 </div>
               </div>
 
-              <TechStack />
+              <TechStack addedTech={addedTech} setAddedTech={setAddedTech}/>
 
               {/* Project Thumbnail */}
               <div className="mt-4">
