@@ -14,3 +14,8 @@ export interface Image {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   imageSrc: any;
 }
+
+export interface Tech {
+  name: string,
+  technologies: string[]
+}
