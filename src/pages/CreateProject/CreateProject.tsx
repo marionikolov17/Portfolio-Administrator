@@ -1,6 +1,5 @@
 import { CiCirclePlus, CiImageOn } from "react-icons/ci";
 import { IoAddOutline, IoCloseOutline } from "react-icons/io5";
-import { MdOutlineDelete } from "react-icons/md";
 import { SiReact } from "react-icons/si";
 import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 import { useCreateProject } from "../../entities/projects/contexts/create-project.context";
@@ -8,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Features from "../../features/createProject/components/Features/Features";
 import Skills from "../../features/createProject/components/Skills/Skills";
+import Images from "../../features/createProject/components/Images/Images";
 
 interface Feature {
   index: number;
@@ -19,9 +19,17 @@ interface Skill {
   text: string
 }
 
+interface Image {
+  index: number;
+  file: File;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  imageSrc: any
+}
+
 export default function CreateProject() {
   const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
   const [addedSkills, setAddedSkills] = useState<Skill[]>([]);
+  const [addedImages, setAddedImages] = useState<Image[]>([]);
 
   const { isIconsShow, setIsIconsShow } = useCreateProject();
 
@@ -157,27 +165,8 @@ export default function CreateProject() {
                   </label>
                 </div>
               </div>
-              {/* Project Images */}
-              <div className="mt-4">
-                <h4 className="font-bold text-white">Images</h4>
-                <p className="text-xs text-slate-400">Up to 7 images</p>
-                {/* Images container */}
-                <div className="flex flex-wrap items-center mt-4">
-                  {/* Show images here */}
-                  <div className="w-32 h-28 flex overflow-hidden rounded-lg me-4 relative">
-                    <img
-                      src="/images/zynkle-1.jpg"
-                      alt=""
-                      className="object-cover"
-                    />
-                    <IoCloseOutline className="absolute z-30 top-0 right-0 m-2 text-xl cursor-pointer bg-white rounded-full shadow" />
-                  </div>
-                  <label htmlFor="">
-                    <CiCirclePlus className="text-4xl cursor-pointer hover:text-brand-600 text-white" />
-                  </label>
-                </div>
-              </div>
-
+              
+              <Images addedImages={addedImages} setAddedImages={setAddedImages}/>
               <Features addedFeatures={addedFeatures} setAddedFeatures={setAddedFeatures}/>
               <Skills addedSkills={addedSkills} setAddedSkills={setAddedSkills}/>
 
