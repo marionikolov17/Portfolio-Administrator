@@ -7,14 +7,21 @@ import { useCreateProject } from "../../entities/projects/contexts/create-projec
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Features from "../../features/createProject/components/Features/Features";
+import Skills from "../../features/createProject/components/Skills/Skills";
 
 interface Feature {
   index: number;
   text: string;
 }
 
+interface Skill {
+  index: number;
+  text: string
+}
+
 export default function CreateProject() {
   const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
+  const [addedSkills, setAddedSkills] = useState<Skill[]>([]);
 
   const { isIconsShow, setIsIconsShow } = useCreateProject();
 
@@ -172,30 +179,8 @@ export default function CreateProject() {
               </div>
 
               <Features addedFeatures={addedFeatures} setAddedFeatures={setAddedFeatures}/>
-              
-              {/* Project what I've learned */}
-              <div className="mt-4">
-                <h4 className="font-bold text-white">What I've learned</h4>
-                {/* skills here */}
-                {/* skill */}
-                <div className="w-full flex items-center border border-primary-800 rounded-lg mt-2 overflow-hidden transition duration-300 hover:ring-2 hover:ring-brand-600">
-                  <input
-                    className="py-2 px-4 w-full bg-transparent outline-none rounded-lg text-sm text-white mt-1"
-                    placeholder="e.g Polished my React skills"
-                    type="text"
-                  />
-                  <div className="h-full sm:w-14 flex items-center justify-center p-2">
-                    <MdOutlineDelete className="text-red-600 hover:text-red-700 cursor-pointer text-2xl" />
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="flex items-center justify-center w-full text-white border border-primary-800 rounded-lg py-2 mt-2 hover:ring-2 hover:ring-brand-600 transition duration-300"
-                >
-                  <IoAddOutline className="me-2 text-xl" />
-                  Add new skill
-                </button>
-              </div>
+              <Skills addedSkills={addedSkills} setAddedSkills={setAddedSkills}/>
+
               {/* Project card action buttons */}
               <div className="mt-4 mb-2 flex items-center justify-end">
                 <button
