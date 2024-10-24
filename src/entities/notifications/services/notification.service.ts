@@ -48,19 +48,22 @@ export const getNotifications = async (
 export const readNotifications = async () => {
   const response = await databases.listDocuments(
     DATABASE_ID,
-    NOTIFICATIONS_COLLECTION_ID
+    NOTIFICATIONS_COLLECTION_ID,
+    [Query.limit(1000)]
   );
   const documents = response.documents;
 
   for (const document of documents) {
     const documentId = document.$id;
 
-    await databases.updateDocument(
-      DATABASE_ID,
-      NOTIFICATIONS_COLLECTION_ID,
-      documentId,
-      { isRead: true }
-    );
+    if (document.isRead === false) {
+      await databases.updateDocument(
+        DATABASE_ID,
+        NOTIFICATIONS_COLLECTION_ID,
+        documentId,
+        { isRead: true }
+      );
+    }
   }
 
   return response;
