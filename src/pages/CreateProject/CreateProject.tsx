@@ -4,9 +4,31 @@ import { MdOutlineDelete } from "react-icons/md";
 import { SiReact } from "react-icons/si";
 import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 import { useCreateProject } from "../../entities/projects/contexts/create-project.context";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import Features from "../../features/createProject/components/Features/Features";
+
+interface Feature {
+  index: number;
+  text: string;
+}
 
 export default function CreateProject() {
+  const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
+
   const { isIconsShow, setIsIconsShow } = useCreateProject();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onCreate = async (data: any) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -14,7 +36,10 @@ export default function CreateProject() {
         <div className="w-full 2xl:w-[70%] h-max overflow-x-hidden py-1 px-1 relative">
           {isIconsShow && <AddIconsForm />}
           <div className={`w-full ${isIconsShow && "blur-md"}`}>
-            <form className="w-full px-4 pb-4">
+            <form
+              className="w-full px-4 pb-4"
+              onSubmit={handleSubmit(onCreate)}
+            >
               {/* Project Header information */}
               <h1 className="text-white font-bold text-2xl">Create Project</h1>
               <div className="w-full flex flex-wrap gap-x-4">
@@ -85,7 +110,10 @@ export default function CreateProject() {
                     placeholder="e.g Front-End"
                     className="py-2 px-4 bg-transparent outline-none rounded-lg text-sm border border-primary-800 text-white mt-1 transition duration-300 focus:ring-2 focus:ring-brand-600"
                   />
-                  <CiCirclePlus className="text-3xl ms-4 cursor-pointer hover:text-brand-600 text-white" onClick={() => setIsIconsShow(true)} />
+                  <CiCirclePlus
+                    className="text-3xl ms-4 cursor-pointer hover:text-brand-600 text-white"
+                    onClick={() => setIsIconsShow(true)}
+                  />
                   {/* Selected */}
                   {/* Technology container */}
                   <div className="relative p-4">
@@ -142,29 +170,9 @@ export default function CreateProject() {
                   </label>
                 </div>
               </div>
-              {/* Project features */}
-              <div className="mt-4">
-                <h4 className="font-bold text-white">Features</h4>
-                {/* Features here */}
-                {/* Feature */}
-                <div className="w-full flex items-center border border-primary-800 rounded-lg mt-2 overflow-hidden transition duration-300 hover:ring-2 hover:ring-brand-600">
-                  <input
-                    className="py-2 px-4 w-full bg-transparent outline-none rounded-lg text-sm text-white mt-1"
-                    placeholder="e.g Complex user authentication"
-                    type="text"
-                  />
-                  <div className="h-full sm:w-14 flex items-center justify-center p-2">
-                    <MdOutlineDelete className="text-red-600 cursor-pointer text-2xl hover:text-red-700" />
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="flex items-center justify-center w-full text-white border border-primary-800 rounded-lg py-2 mt-2 hover:ring-2 hover:ring-brand-600 transition duration-300"
-                >
-                  <IoAddOutline className="me-2 text-xl" />
-                  Add new feature
-                </button>
-              </div>
+
+              <Features addedFeatures={addedFeatures} setAddedFeatures={setAddedFeatures}/>
+              
               {/* Project what I've learned */}
               <div className="mt-4">
                 <h4 className="font-bold text-white">What I've learned</h4>
