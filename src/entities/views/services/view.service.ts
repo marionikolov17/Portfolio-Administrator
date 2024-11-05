@@ -28,6 +28,9 @@ export const fetchViewsStatistics = async (period: string) => {
     const response = await databases.listDocuments(
         DATABASE_ID,
         VIEWS_COLLECTION_ID,
+        [
+            Query.limit(100000)
+        ]
     )
 
     return response;
