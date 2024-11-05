@@ -1,3 +1,4 @@
+import { Query } from "appwrite";
 import { databases } from "../../../lib/appwrite";
 import { DATABASE_ID, VIEWS_COLLECTION_ID } from "../../../shared/constants/database.constant";
 import { filterTimeDocuments } from "../../../shared/utils/filterTimeDocuments";
@@ -9,6 +10,9 @@ export const fetchViewsStatistics = async (period: string) => {
     const res = await databases.listDocuments(
         DATABASE_ID,
         VIEWS_COLLECTION_ID,
+        [
+            Query.limit(100000)
+        ]
     )
     const documents = res.documents;
 

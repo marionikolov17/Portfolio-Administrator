@@ -32,7 +32,7 @@ export const getNotifications = async (
   const response = await databases.listDocuments(
     DATABASE_ID,
     NOTIFICATIONS_COLLECTION_ID,
-    [...filterArr]
+    [...filterArr, Query.limit(100000)]
   );
   const documents = response.documents;
 
@@ -48,7 +48,10 @@ export const getNotifications = async (
 export const readNotifications = async () => {
   const response = await databases.listDocuments(
     DATABASE_ID,
-    NOTIFICATIONS_COLLECTION_ID
+    NOTIFICATIONS_COLLECTION_ID,
+    [
+      Query.limit(100000)
+    ]
   );
   const documents = response.documents;
 
