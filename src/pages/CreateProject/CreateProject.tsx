@@ -1,10 +1,10 @@
-import { CiImageOn } from "react-icons/ci";
 import { useCreateProject } from "../../entities/projects/contexts/create-project.context";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Features from "../../features/createProject/components/Features/Features";
 import Skills from "../../features/createProject/components/Skills/Skills";
 import Images from "../../features/createProject/components/Images/Images";
+import Thumbnail from "../../features/createProject/components/Thumbnail/Thumbnail.js";
 import TechStack from "../../features/createProject/components/TechStack/TechStack";
 import { Feature, Image, Skill, Tech } from "../../entities/projects/interfaces/project-inputs.interface";
 import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
@@ -101,21 +101,7 @@ export default function CreateProject() {
               </div>
 
               <TechStack addedTech={addedTech} setAddedTech={setAddedTech}/>
-
-              {/* Project Thumbnail */}
-              <div className="mt-4">
-                <h4 className="font-bold text-white">Thumbnail</h4>
-                <div className="mt-2 h-32 w-32 border border-primary-800 border-dashed rounded-lg flex flex-col items-center justify-center">
-                  <CiImageOn className="text-3xl text-brand-600" />
-                  <label
-                    htmlFor=""
-                    className="text-white hover:text-brand-600 text-sm font-bold mt-2 cursor-pointer"
-                  >
-                    Upload a file
-                  </label>
-                </div>
-              </div>
-              
+              <Thumbnail />
               <Images addedImages={addedImages} setAddedImages={setAddedImages}/>
               <Features addedFeatures={addedFeatures} setAddedFeatures={setAddedFeatures}/>
               <Skills addedSkills={addedSkills} setAddedSkills={setAddedSkills}/>
