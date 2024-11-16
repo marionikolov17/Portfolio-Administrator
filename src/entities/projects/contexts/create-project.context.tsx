@@ -14,12 +14,18 @@ export function CreateProjectProvider({
   children: React.ReactElement;
 }) {
   const [isIconsShow, setIsIconsShow] = useState(false);
+  const [techStackIndex, setTechStackIndex] = useState(0);
+  const [selectedTechnology, setSelectedTechnology] = useState("");
 
   return (
     <CreateProjectContext.Provider
       value={{
         isIconsShow,
         setIsIconsShow,
+        techStackIndex,
+        setTechStackIndex,
+        selectedTechnology,
+        setSelectedTechnology
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import { useCreateProject } from "../../../../entities/projects/contexts/create-
 import { SiReact } from "react-icons/si";
 import { IoAddOutline, IoCloseOutline } from "react-icons/io5";
 import { Tech } from "../../../../entities/projects/interfaces/project-inputs.interface";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 interface InputProps {
   addedTech: Tech[];
@@ -46,7 +46,12 @@ export default function TechStack({ addedTech, setAddedTech }: InputProps) {
 }
 
 function AddedTech({ tech, index, setAddedTech }: { tech: Tech, index: number, setAddedTech: Dispatch<SetStateAction<Tech[]>> }) {
-  const { setIsIconsShow } = useCreateProject();
+  const { setIsIconsShow, setTechStackIndex, techStackIndex, selectedTechnology } = useCreateProject();
+
+  const showIconsForm = () => {
+    setTechStackIndex(index);
+    setIsIconsShow(true);
+  }
 
   const changeTechName = (value: string) => {
     setAddedTech(currentTech => {
@@ -58,9 +63,25 @@ function AddedTech({ tech, index, setAddedTech }: { tech: Tech, index: number, s
     });
   }
 
-  const addTechnology = () => {
+  useEffect(() => {
+    /* If not chosed technology */
+    if (selectedTechnology === "") return;
+    /* If technology already chosed */
+    if (tech.technologies.includes(selectedTechnology)) return;
 
-  }
+    setAddedTech(currentTech => {
+      //console.log("updating")
+      const newTech = currentTech.slice(0);
+      const selectedTechnologies = newTech[techStackIndex].technologies.slice();
+
+      if (selectedTechnologies.includes(selectedTechnology)) return newTech;
+      
+      selectedTechnologies.push(selectedTechnology);
+      newTech[techStackIndex].technologies = selectedTechnologies;
+
+      return newTech;
+    })
+  }, [selectedTechnology, setAddedTech, tech.technologies, techStackIndex])
 
   const removeTechnology = () => {
 
@@ -78,7 +99,7 @@ function AddedTech({ tech, index, setAddedTech }: { tech: Tech, index: number, s
         />
         <CiCirclePlus
           className="text-3xl ms-4 cursor-pointer hover:text-brand-600 text-white"
-          onClick={() => setIsIconsShow(true)}
+          onClick={showIconsForm}
         />
         {/* Selected */}
         {/* Technology container */}
