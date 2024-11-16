@@ -101,7 +101,7 @@ export default function CreateProject() {
               </div>
 
               <TechStack addedTech={addedTech} setAddedTech={setAddedTech}/>
-              <Thumbnail />
+              <Thumbnail setValue={setValue}/>
               <Images addedImages={addedImages} setAddedImages={setAddedImages}/>
               <Features addedFeatures={addedFeatures} setAddedFeatures={setAddedFeatures}/>
               <Skills addedSkills={addedSkills} setAddedSkills={setAddedSkills}/>
