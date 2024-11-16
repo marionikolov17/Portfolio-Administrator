@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { allowedImageMimeTypes } from "../../../../shared/constants/allowed-files.constant";
-import { UseFormSetValue } from "react-hook-form";
+import { FieldValues, UseFormSetValue } from "react-hook-form";
 import { IoCloseOutline } from "react-icons/io5";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Thumbnail({ setValue }: { setValue: UseFormSetValue<any> }) {
+export default function Thumbnail({ setValue }: { setValue: UseFormSetValue<FieldValues> }) {
   const [error, setError] = useState<string | null>(null);
   const [image, setImage] = useState<string | undefined>();
 
