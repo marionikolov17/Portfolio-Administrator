@@ -1,9 +1,9 @@
 import { CiCirclePlus } from "react-icons/ci";
 import { useCreateProject } from "../../../../entities/projects/contexts/create-project.context";
-import { SiReact } from "react-icons/si";
 import { IoAddOutline, IoCloseOutline } from "react-icons/io5";
 import { Tech } from "../../../../entities/projects/interfaces/project-inputs.interface";
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { techIcons } from "../../../../shared/data/tech-icons";
 
 interface InputProps {
   addedTech: Tech[];
@@ -75,7 +75,7 @@ function AddedTech({ tech, index, setAddedTech }: { tech: Tech, index: number, s
       const selectedTechnologies = newTech[techStackIndex].technologies.slice();
 
       if (selectedTechnologies.includes(selectedTechnology)) return newTech;
-      
+
       selectedTechnologies.push(selectedTechnology);
       newTech[techStackIndex].technologies = selectedTechnologies;
 
@@ -83,8 +83,15 @@ function AddedTech({ tech, index, setAddedTech }: { tech: Tech, index: number, s
     })
   }, [selectedTechnology, setAddedTech, tech.technologies, techStackIndex])
 
-  const removeTechnology = () => {
+  const removeTechnology = (name: string) => {
+    setAddedTech(currentTech => {
+      const newTech = currentTech.slice(0);
+      let selectedTechnologies = newTech[index].technologies.slice(0);
+      selectedTechnologies = selectedTechnologies.filter(value => value !== name);
+      newTech[index].technologies = selectedTechnologies;
 
+      return newTech;
+    })
   }
 
   return (
@@ -102,17 +109,25 @@ function AddedTech({ tech, index, setAddedTech }: { tech: Tech, index: number, s
           onClick={showIconsForm}
         />
         {/* Selected */}
-        {/* Technology container */}
-        <div className="relative p-4">
-          <SiReact className="text-3xl text-[#61dbfb]" />
-          <IoCloseOutline className="absolute top-0 right-0 cursor-pointer bg-strongRed rounded-full text-white text-sm hover:text-brand-600" />
-        </div>
-        {/* Technology container */}
-        <div className="relative p-4">
-          <SiReact className="text-3xl text-[#61dbfb]" />
-          <IoCloseOutline className="absolute top-0 right-0 cursor-pointer bg-strongRed rounded-full text-white text-sm hover:text-brand-600" />
-        </div>
+        {tech.technologies.map((name, index) => {
+          return <TechnologyContainer key={index} name={name} removeTechnology={removeTechnology}/>
+        })}
       </div>
     </>
   );
+}
+
+function TechnologyContainer({ name, removeTechnology }: { name: string, removeTechnology: (name: string) => void }) {
+  return (
+    <>
+      {/* Technology container */}
+      <div className="relative p-4">
+        {techIcons[name]}
+        <IoCloseOutline 
+          className="absolute top-0 right-0 cursor-pointer bg-strongRed rounded-full text-white text-sm hover:text-brand-600" 
+          onClick={() => removeTechnology(name)}
+        />
+      </div>
+    </>
+  )
 }
