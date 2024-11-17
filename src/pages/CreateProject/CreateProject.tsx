@@ -11,6 +11,9 @@ import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIco
 import HeaderDetails from "../../features/createProject/components/HeaderDetails/HeaderDetails.js";
 import editProjectInputData from "../../entities/projects/utils/editInputData.js";
 import validateProjectInputData from "../../entities/projects/utils/validateInputData.js";
+import { useMutation } from "@tanstack/react-query";
+import { createProject } from "../../entities/projects/services/project.service.js";
+import Project from "../../entities/projects/interfaces/project.interface.js";
 
 export default function CreateProject() {
   const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
@@ -18,8 +21,24 @@ export default function CreateProject() {
   const [addedImages, setAddedImages] = useState<Image[]>([]);
   const [addedTech, setAddedTech] = useState<Tech[]>([]);
   const [isSubmitedOnce, setIsSubmitedOnce] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isIconsShow } = useCreateProject();
+
+  const mutation = useMutation({
+    mutationFn: (data: Project) => createProject(data),
+    onMutate: () => {
+      setIsLoading(true);
+    },
+    onSuccess: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      console.log(error)
+    },
+    onSettled: () => {
+      setIsLoading(false);
+    }
+  })
 
   const {
     register,
@@ -38,6 +57,7 @@ export default function CreateProject() {
     // 2) Add validation
     if(!validateProjectInputData(editedData)) return alert("Please fullfil all fields");
     // 3) Create request
+    mutation.mutate(editedData);
   };
 
   return (
@@ -80,7 +100,10 @@ export default function CreateProject() {
                 >
                   Cancel
                 </button>
-                <button className="py-2 px-4 bg-brand-600 text-white rounded-lg text-sm hover:shadow hover:bg-brand-700">
+                <button 
+                  className="py-2 px-4 bg-brand-600 text-white rounded-lg text-sm hover:shadow hover:bg-brand-700 disabled:bg-gray-100"
+                  disabled={isLoading}
+                >
                   Create
                 </button>
               </div>

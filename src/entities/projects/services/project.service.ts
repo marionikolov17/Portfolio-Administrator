@@ -13,17 +13,17 @@ export const createProject = async (data: Project) => {
     const imageUrl = storage.getFileDownload(BUCKET_ID, uploadedThumbnail.$id);
 
     // Upload images
-    const images: string[] = [];
-    data.images.forEach((image: File | string) => {
-        storage.createFile(
-            BUCKET_ID,
-            ID.unique(),
-            image as File
-        ).then((res) => {
+    const images: string[] = await Promise.all(
+        data.images.map(async (image: File | string) => {
+            const res = await storage.createFile(
+                BUCKET_ID,
+                ID.unique(),
+                image as File
+            );
             const url = storage.getFileDownload(BUCKET_ID, res.$id);
-            images.push(url);
+            return url;
         })
-    });
+    );
 
     // Get latest index
     const documents = (await databases.listDocuments(DATABASE_ID, PROJECTS_COLLECTION_ID)).total;
