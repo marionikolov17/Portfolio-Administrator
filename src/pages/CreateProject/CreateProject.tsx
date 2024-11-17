@@ -39,8 +39,7 @@ export default function CreateProject() {
     onSuccess: () => {
       navigate("/projects");
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-    onError: (error: any) => {
+    onError: () => {
       //console.log(error)
       setError("Could not create project");
     },
