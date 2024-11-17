@@ -49,7 +49,9 @@ export const readNotifications = async () => {
   const response = await databases.listDocuments(
     DATABASE_ID,
     NOTIFICATIONS_COLLECTION_ID,
-    [Query.limit(1000)]
+    [
+      Query.limit(100000)
+    ]
   );
   const documents = response.documents;
 
