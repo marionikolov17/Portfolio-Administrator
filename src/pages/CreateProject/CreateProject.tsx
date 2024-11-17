@@ -15,6 +15,7 @@ export default function CreateProject() {
   const [addedSkills, setAddedSkills] = useState<Skill[]>([]);
   const [addedImages, setAddedImages] = useState<Image[]>([]);
   const [addedTech, setAddedTech] = useState<Tech[]>([]);
+  const [isSubmitedOnce, setIsSubmitedOnce] = useState<boolean>(false);
 
   const { isIconsShow } = useCreateProject();
 
@@ -23,10 +24,13 @@ export default function CreateProject() {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues
   } = useForm();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onCreate = async (data: any) => {
+    setIsSubmitedOnce(true);
+    console.log(getValues("imageUrl"))
     console.log(data);
   };
 
@@ -45,10 +49,22 @@ export default function CreateProject() {
               
               <HeaderDetails register={register} errors={errors}/>
               <TechStack addedTech={addedTech} setAddedTech={setAddedTech}/>
+              {/* Tech Stack Error */}
+              {isSubmitedOnce && addedTech.length === 0 && <p className="text-red-600 text-sm mt-2">You must add tech stack</p>}
               <Thumbnail setValue={setValue}/>
+              {/* Thumbnail Error */}
+              {isSubmitedOnce && (getValues("imageUrl") === undefined || getValues("imageUrl") === null) && 
+                <p className="text-red-600 text-sm mt-2">You must add thumbnail</p>
+              }
               <Images addedImages={addedImages} setAddedImages={setAddedImages}/>
+              {/* Images Error */}
+              {isSubmitedOnce && addedImages.length === 0 && <p className="text-red-600 text-sm mt-2">You must add at least one image</p>}
               <Features addedFeatures={addedFeatures} setAddedFeatures={setAddedFeatures}/>
+              {/* Features Error */}
+              {isSubmitedOnce && addedFeatures.length === 0 && <p className="text-red-600 text-sm mt-2">You must add at least one feature</p>}
               <Skills addedSkills={addedSkills} setAddedSkills={setAddedSkills}/>
+              {/* Skills Error */}
+              {isSubmitedOnce && addedSkills.length === 0 && <p className="text-red-600 text-sm mt-2">You must add at least one skill</p>}
 
               {/* Project card action buttons */}
               <div className="mt-4 mb-2 flex items-center justify-end">
