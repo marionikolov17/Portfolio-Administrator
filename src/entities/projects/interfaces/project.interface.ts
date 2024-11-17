@@ -7,5 +7,6 @@ export default interface Project {
     images: string[] | File[];
     features: string[];
     skills: string[];
-    tech: string[]
+    tech: string[];
+    index?: number;
 }
