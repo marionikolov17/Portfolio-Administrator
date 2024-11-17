@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Image } from "../interfaces/project-inputs.interface";
 
 export default function editProjectInputData(data: any) {
     //console.log("start", data)
     let result = { ...data };
     result = editTech(result);
+    result = editImages(result);
 
     console.log(result);
 
@@ -32,8 +34,17 @@ function editTech(data: any) {
     return newData;
 }
 
-function editImages() {
+function editImages(data: any) {
+    const newData = { ...data };
+    const imagesObj = data.images;
+    const newImages: File[] = [];
 
+    imagesObj.forEach((imageObj: Image) => {
+        newImages.push(imageObj.file);
+    });
+
+    newData.images = newImages;
+    return newData;
 }
 
 function editFeatures() {
