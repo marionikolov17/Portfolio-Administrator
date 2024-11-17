@@ -74,7 +74,7 @@ export default function Images({ addedImages, setAddedImages }: InputProps) {
       {/* Project Images */}
       <div className="mt-4">
         <h4 className="font-bold text-white">Images</h4>
-        <p className="text-xs text-slate-400">Up to 7 images</p>
+        <p className="text-xs text-slate-400">Up to 9 images</p>
         {/* Images container */}
         <div className="flex flex-wrap items-center mt-4">
           {/* Show images here */}
