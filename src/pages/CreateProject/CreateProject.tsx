@@ -1,19 +1,22 @@
 import { useCreateProject } from "../../entities/projects/contexts/create-project.context";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { createProject } from "../../entities/projects/services/project.service.js";
+import { Feature, Image, Skill, Tech } from "../../entities/projects/interfaces/project-inputs.interface";
+import Project from "../../entities/projects/interfaces/project.interface.js";
+
 import Features from "../../features/createProject/components/Features/Features";
 import Skills from "../../features/createProject/components/Skills/Skills";
 import Images from "../../features/createProject/components/Images/Images";
 import Thumbnail from "../../features/createProject/components/Thumbnail/Thumbnail.js";
 import TechStack from "../../features/createProject/components/TechStack/TechStack";
-import { Feature, Image, Skill, Tech } from "../../entities/projects/interfaces/project-inputs.interface";
 import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 import HeaderDetails from "../../features/createProject/components/HeaderDetails/HeaderDetails.js";
+
 import editProjectInputData from "../../entities/projects/utils/editInputData.js";
 import validateProjectInputData from "../../entities/projects/utils/validateInputData.js";
-import { useMutation } from "@tanstack/react-query";
-import { createProject } from "../../entities/projects/services/project.service.js";
-import Project from "../../entities/projects/interfaces/project.interface.js";
 
 export default function CreateProject() {
   const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
@@ -22,6 +25,9 @@ export default function CreateProject() {
   const [addedTech, setAddedTech] = useState<Tech[]>([]);
   const [isSubmitedOnce, setIsSubmitedOnce] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const { isIconsShow } = useCreateProject();
 
@@ -30,10 +36,13 @@ export default function CreateProject() {
     onMutate: () => {
       setIsLoading(true);
     },
-    onSuccess: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onSuccess: () => {
+      navigate("/projects");
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
     onError: (error: any) => {
-      console.log(error)
+      //console.log(error)
+      setError("Could not create project");
     },
     onSettled: () => {
       setIsLoading(false);
@@ -53,9 +62,8 @@ export default function CreateProject() {
     setIsSubmitedOnce(true);
     // 1) Edit the data
     const editedData = editProjectInputData({ ...data, tech: addedTech, images: addedImages, features: addedFeatures, skills: addedSkills });
-    console.log(editedData)
     // 2) Add validation
-    if(!validateProjectInputData(editedData)) return alert("Please fullfil all fields");
+    if(!validateProjectInputData(editedData)) return setError("Please fullfil all fields correctly");
     // 3) Create request
     mutation.mutate(editedData);
   };
@@ -107,6 +115,8 @@ export default function CreateProject() {
                   Create
                 </button>
               </div>
+
+              {error && error !== "" && <p className="mt-2 text-red-600 text-center">{error}</p>}
             </form>
           </div>
         </div>
