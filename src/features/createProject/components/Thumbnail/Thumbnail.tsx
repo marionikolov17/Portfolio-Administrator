@@ -38,7 +38,7 @@ export default function Thumbnail({ setValue }: { setValue: UseFormSetValue<Fiel
   };
 
   const onImageRemove = () => {
-    setValue("imageUri", undefined);
+    setValue("imageUrl", undefined);
     setImage(undefined);
   };
 
