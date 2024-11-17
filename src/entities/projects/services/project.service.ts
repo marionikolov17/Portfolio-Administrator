@@ -25,6 +25,10 @@ export const createProject = async (data: Project) => {
         })
     );
 
+    // Handle Url's
+    const githubUrl = data.githubUrl === "" ? null : data.githubUrl;
+    const demoUrl = data.demoUrl === "" ? null : data.demoUrl;
+
     // Get latest index
     const documents = (await databases.listDocuments(DATABASE_ID, PROJECTS_COLLECTION_ID)).total;
 
@@ -35,6 +39,8 @@ export const createProject = async (data: Project) => {
         ID.unique(),
         {
             ...data,
+            githubUrl: githubUrl,
+            demoUrl: demoUrl,
             imageUrl: imageUrl,
             images: images,
             index: documents
