@@ -9,6 +9,7 @@ import TechStack from "../../features/createProject/components/TechStack/TechSta
 import { Feature, Image, Skill, Tech } from "../../entities/projects/interfaces/project-inputs.interface";
 import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 import HeaderDetails from "../../features/createProject/components/HeaderDetails/HeaderDetails.js";
+import editProjectInputData from "../../entities/projects/utils/editInputData.js";
 
 export default function CreateProject() {
   const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
@@ -30,8 +31,11 @@ export default function CreateProject() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onCreate = async (data: any) => {
     setIsSubmitedOnce(true);
-    console.log(getValues("imageUrl"))
     console.log(data);
+    // 1) Edit the data
+    editProjectInputData({ ...data, tech: addedTech, images: addedImages, features: addedFeatures, skills: addedSkills })
+    // 2) Add validation
+    // 3) Create request
   };
 
   return (
