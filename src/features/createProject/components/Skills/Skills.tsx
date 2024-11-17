@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
 import { Skill } from "../../../../entities/projects/interfaces/project-inputs.interface";
@@ -90,6 +90,12 @@ function AddedSkill({
   handleUpdateSkill: (index: number, value: string) => void;
   handleDeleteSkill: (index: number) => void;
 }) {
+  const [isTouched, setIsTouched] = useState(false);
+
+  const touch = () => {
+    if (isTouched === false) setIsTouched(true);
+  }
+
   return (
     <>
       {/* skill */}
@@ -100,11 +106,13 @@ function AddedSkill({
           type="text"
           value={text}
           onChange={(e) => handleUpdateSkill(index, e.target.value)}
+          onClick={touch}
         />
         <div className="h-full sm:w-14 flex items-center justify-center p-2">
           <MdOutlineDelete className="text-red-600 hover:text-red-700 cursor-pointer text-2xl" onClick={() => handleDeleteSkill(index)} />
         </div>
       </div>
+      {isTouched && text === "" && <p className="text-red-500 text-sm mt-1">You must fill this field</p>}
     </>
   );
 }
