@@ -31,9 +31,9 @@ export default function CreateProject() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onCreate = async (data: any) => {
     setIsSubmitedOnce(true);
-    console.log(data);
     // 1) Edit the data
-    editProjectInputData({ ...data, tech: addedTech, images: addedImages, features: addedFeatures, skills: addedSkills })
+    const editedData = editProjectInputData({ ...data, tech: addedTech, images: addedImages, features: addedFeatures, skills: addedSkills });
+    console.log(editedData)
     // 2) Add validation
     // 3) Create request
   };
