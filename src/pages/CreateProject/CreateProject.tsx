@@ -10,6 +10,7 @@ import { Feature, Image, Skill, Tech } from "../../entities/projects/interfaces/
 import AddIconsForm from "../../features/projects/components/AddIconsForm/AddIconsForm";
 import HeaderDetails from "../../features/createProject/components/HeaderDetails/HeaderDetails.js";
 import editProjectInputData from "../../entities/projects/utils/editInputData.js";
+import validateProjectInputData from "../../entities/projects/utils/validateInputData.js";
 
 export default function CreateProject() {
   const [addedFeatures, setAddedFeatures] = useState<Feature[]>([]);
@@ -35,6 +36,7 @@ export default function CreateProject() {
     const editedData = editProjectInputData({ ...data, tech: addedTech, images: addedImages, features: addedFeatures, skills: addedSkills });
     console.log(editedData)
     // 2) Add validation
+    if(!validateProjectInputData(editedData)) return alert("Please fullfil all fields");
     // 3) Create request
   };
 
