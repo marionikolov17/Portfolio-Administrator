@@ -58,12 +58,14 @@ export const readNotifications = async () => {
   for (const document of documents) {
     const documentId = document.$id;
 
-    await databases.updateDocument(
-      DATABASE_ID,
-      NOTIFICATIONS_COLLECTION_ID,
-      documentId,
-      { isRead: true }
-    );
+    if (document.isRead === false) {
+      await databases.updateDocument(
+        DATABASE_ID,
+        NOTIFICATIONS_COLLECTION_ID,
+        documentId,
+        { isRead: true }
+      );
+    }
   }
 
   return response;

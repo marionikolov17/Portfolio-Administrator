@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 export default function Notifications() {
     const [selectedTime, setSelectedTime] = useState("last-7");
     const [selectedType, setSelectedType] = useState("all");
+    const queryClient = useQueryClient();
 
     const { isPending, isError, data, error } = useQuery({
         queryKey: ["notifications", selectedTime, selectedType],
@@ -21,21 +22,19 @@ export default function Notifications() {
 
     useEffect(() => {
         return () => {
-            mutate();
+            mutate()
         }
     }, [mutate])
-
-    const queryClient = useQueryClient();
 
     const notifications = data?.documents;
 
     const handleSelectTime = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        queryClient.invalidateQueries({ queryKey: ['inbox', selectedTime, selectedType] });
+        queryClient.invalidateQueries({ queryKey: ['notifications', selectedTime, selectedType] });
         setSelectedTime(e.target.value)
     }
 
     const handleSelectType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        queryClient.invalidateQueries({ queryKey: ['inbox', selectedTime, selectedType] });
+        queryClient.invalidateQueries({ queryKey: ['notifications', selectedTime, selectedType] });
         setSelectedType(e.target.value)
     }
 
